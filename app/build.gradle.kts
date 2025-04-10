@@ -51,6 +51,7 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.okhttp)
     implementation(libs.generativeai)
+    implementation(libs.androidx.ui.test.android)
 
 
     testImplementation(libs.junit)
