@@ -21,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
         logo.startAnimation(animation)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, OnboardingActivity::class.java)
+            val intent = Intent(this, ProfileOnboardingActivity::class.java)
             startActivity(intent)
             finish()
         }, 3000) // 3 sec splash delay
