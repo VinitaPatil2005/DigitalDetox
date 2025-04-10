@@ -15,7 +15,6 @@
         android:textStyle="bold"
         android:layout_marginBottom="20dp" />
 
-    <!-- Day Input -->
     <EditText
         android:id="@+id/editDay"
         android:layout_width="match_parent"
@@ -27,31 +26,39 @@
         android:background="@drawable/purple_edittext"
         android:layout_marginBottom="10dp" />
 
-    <!-- Subject Input -->
     <EditText
-        android:id="@+id/editSubject"
+        android:id="@+id/editType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Subject"
+        android:hint="Type: Study / Break / Activity"
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="#AA88FF"
         android:background="@drawable/purple_edittext"
         android:layout_marginBottom="10dp" />
 
-    <!-- Time Input -->
+    <EditText
+        android:id="@+id/editSubject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Subject/Activity"
+        android:inputType="text"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#AA88FF"
+        android:background="@drawable/purple_edittext"
+        android:layout_marginBottom="10dp" />
+
     <EditText
         android:id="@+id/editTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Time Slot (e.g., 10:00 - 11:00)"
+        android:hint="Time Slot (e.g., 10:00 - 11:00)"
         android:inputType="text"
         android:textColor="#FFFFFF"
         android:textColorHint="#AA88FF"
         android:background="@drawable/purple_edittext"
         android:layout_marginBottom="12dp" />
 
-    <!-- Add Button -->
     <Button
         android:id="@+id/btnAddToTimetable"
         android:layout_width="wrap_content"
@@ -63,7 +70,6 @@
         android:textStyle="bold"
         android:layout_marginBottom="20dp" />
 
-    <!-- Timetable List -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
