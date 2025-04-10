@@ -57,7 +57,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_set_limits -> {
-                    Toast.makeText(this, "Set Limits clicked", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, SetLimitsActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.nav_profile -> {
