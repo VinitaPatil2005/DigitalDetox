@@ -25,6 +25,11 @@
 
         <activity android:name=".ui.OnboardingActivity" />
         <activity android:name=".ui.ProfileOnboardingActivity" />
+        <activity android:name=".StudentOptionsActivity" />
+        <activity android:name=".TimetableActivity" />
+        <activity android:name=".FocusRitualsActivity" />
+
+
 
 
         <activity

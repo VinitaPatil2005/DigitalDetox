@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0D0D0D"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🎓 Student Tools"
+            android:textColor="#BB86FC"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Stylized Buttons -->
+        <Button
+            android:id="@+id/btnDesignTimetable"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🗓 Design a Timetable"
+            android:textColor="#BB86FC"
+            android:background="@drawable/outline_button"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btnFocusRituals"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🧘‍♂️ Focus Rituals"
+            android:textColor="#BB86FC"
+            android:background="@drawable/outline_button"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btnPomodoro"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⏱ Pomodoro Focus"
+            android:textColor="#BB86FC"
+            android:background="@drawable/outline_button"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btnMindfulBreaks"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🌿 Mindful Breaks"
+            android:textColor="#BB86FC"
+            android:background="@drawable/outline_button"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btnStudyJournal"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="📓 Study Journal"
+            android:textColor="#BB86FC"
+            android:background="@drawable/outline_button"
+            android:layout_marginBottom="12dp"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btnStudyTips"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💡 Study Tips"
+            android:textColor="#BB86FC"
+            android:background="@drawable/outline_button"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp" />
+    </LinearLayout>
+</ScrollView>
