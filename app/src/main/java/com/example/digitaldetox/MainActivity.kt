@@ -1,44 +1,63 @@
 package com.example.digitaldetox
 
-import android.app.usage.UsageStatsManager
-import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var tvScreenTime: TextView
+    private lateinit var tvInstagramTime: TextView
+    private lateinit var tvYouTubeTime: TextView
+    private lateinit var tvWhatsAppTime: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Initialize TextViews
         tvScreenTime = findViewById(R.id.tvScreenTime)
-        val btnFocusMode = findViewById<Button>(R.id.btnFocusMode)
-        val btnAppLimits = findViewById<Button>(R.id.btnAppLimits)
+        tvInstagramTime = findViewById(R.id.tvInstagramTime)
+        tvYouTubeTime = findViewById(R.id.tvYouTubeTime)
+        tvWhatsAppTime = findViewById(R.id.tvWhatsAppTime)
 
-        tvScreenTime.text = "Today's Screen Time: ${getScreenTimeToday()}"
+        // Set screen time
+        tvScreenTime.text = "Today's Screen Time: 4 hr 30 min"
 
-        btnFocusMode.setOnClickListener {
-            // TODO: Start Focus Mode Activity
+        // Set onClickListeners for tracking buttons
+        findViewById<Button>(R.id.btnDailyTracking).setOnClickListener {
+            Toast.makeText(this, "Daily Tracking clicked", Toast.LENGTH_SHORT).show()
         }
 
-        btnAppLimits.setOnClickListener {
-            // TODO: Start App Limits Activity
+        findViewById<Button>(R.id.btnWeeklyTracking).setOnClickListener {
+            Toast.makeText(this, "Weekly Tracking clicked", Toast.LENGTH_SHORT).show()
         }
-    }
 
-    private fun getScreenTimeToday(): String {
-        val usm = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-        val endTime = System.currentTimeMillis()
-        val startTime = endTime - (1000 * 60 * 60 * 24)
-
-        val usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime)
-        val totalTime = usageStats.sumOf { it.totalTimeInForeground }
-
-        val hours = (totalTime / (1000 * 60 * 60))
-        val minutes = (totalTime / (1000 * 60)) % 60
-        return "$hours hr $minutes min"
+        // Bottom Navigation
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_focus_mode -> {
+                    Toast.makeText(this, "Focus Mode clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_set_limits -> {
+                    Toast.makeText(this, "Set Limits clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_profile -> {
+                    Toast.makeText(this, "Profile clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_chatbot -> {
+                    Toast.makeText(this, "Chatbot clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }
