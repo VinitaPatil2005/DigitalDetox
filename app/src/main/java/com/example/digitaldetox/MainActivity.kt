@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_focus_mode -> {
-                    Toast.makeText(this, "Focus Mode clicked", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, FocusModeActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.nav_set_limits -> {

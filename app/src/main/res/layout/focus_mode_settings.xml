@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1C1B1F"
+    android:padding="24dp">
+
+
+    <!-- Schedule Option -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="@drawable/rounded_button_disabled"
+        android:layout_marginBottom="12dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/add"
+            android:layout_marginEnd="8dp"
+            app:tint="#999999" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set a schedule"
+            android:textColor="#999999"
+            android:textSize="16sp"
+            android:fontFamily="@font/titilliumweb_regular" />
+    </LinearLayout>
+
+    <!-- Turn On Button (Disabled initially) -->
+    <Button
+        android:id="@+id/btnTurnOn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Turn on now"
+        android:enabled="false"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/rounded_button_disabled"
+        android:textAllCaps="false"
+        android:fontFamily="@font/titilliumweb_regular"
+        android:layout_marginBottom="24dp" />
+
+    <!-- App Selection Title -->
+    <TextView
+        android:id="@+id/tvSelectApps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select distracting apps"
+        android:textColor="#FFA726"
+        android:textSize="16sp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/titilliumweb_regular" />
+
+    <!-- ListView for App Selection -->
+    <ListView
+        android:id="@+id/lvAppList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp"/>
+
+</LinearLayout>
