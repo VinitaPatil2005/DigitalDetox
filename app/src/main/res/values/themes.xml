@@ -4,7 +4,7 @@
 
     <!-- Splash Theme -->
     <style name="Theme.DigitalDetox.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        
+
         <item name="android:fontFamily">@font/titilliumweb_regular</item>
 
 
