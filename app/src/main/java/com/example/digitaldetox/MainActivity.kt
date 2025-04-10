@@ -1,5 +1,6 @@
 package com.example.digitaldetox
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -53,7 +54,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_chatbot -> {
-                    Toast.makeText(this, "Chatbot clicked", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, ChatbotActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false

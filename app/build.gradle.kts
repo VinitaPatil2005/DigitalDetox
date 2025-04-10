@@ -47,6 +47,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.generativeai.v060)
+    implementation(libs.gson)
+    implementation(libs.okhttp)
+    implementation(libs.generativeai)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
