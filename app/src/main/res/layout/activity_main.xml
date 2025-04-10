@@ -89,100 +89,43 @@
                 android:background="#2A2D31"
                 android:padding="2dp"
                 android:layout_marginBottom="24dp">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="35"
-                    android:background="#7289DA"
-                    android:layout_marginEnd="1dp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="25"
-                    android:background="#43B581"
-                    android:layout_marginEnd="1dp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="20"
-                    android:background="#FAA61A"
-                    android:layout_marginEnd="1dp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="20"
-                    android:background="#F04747" />
+                <!-- This will be populated dynamically -->
             </LinearLayout>
 
             <!-- Most Used Apps Section with enhanced styling -->
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Most Used Apps"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="12dp" />
+                android:orientation="horizontal"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Most Used Apps"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnShowMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show More"
+                    android:textColor="#BB86FC"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:textAllCaps="false" />
+            </LinearLayout>
 
             <!-- App Usage Details Container -->
             <LinearLayout
                 android:id="@+id/usageDetailsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- Sample App Item (Instagram) -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#2A2D31"
-                    android:padding="12dp"
-                    android:layout_marginBottom="8dp"
-                    android:gravity="center_vertical">
-
-                    <View
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:background="#7289DA"
-                        android:layout_marginEnd="12dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Instagram"
-                            android:textColor="#FFFFFF"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:id="@+id/tvInstagramTime"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2 hr"
-                            android:textColor="#99AAB5"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="35%"
-                        android:textColor="#7289DA"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Similar items for YouTube and WhatsApp -->
-                <!-- Add more app items as needed -->
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp">
+                <!-- This will be populated dynamically -->
             </LinearLayout>
 
             <!-- Motivational Quote -->

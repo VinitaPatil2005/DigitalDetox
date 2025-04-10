@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -24,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var motivationalQuote: TextView
     private lateinit var usageBarContainer: LinearLayout
     private lateinit var usageDetailsContainer: LinearLayout
+    private lateinit var btnShowMore: Button
+    private var showingAllApps = false
+    private var appUsageStats: List<Pair<String, Long>> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,14 +46,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeViews() {
         try {
-//            tvScreenTime = findViewById(R.id.tvScreenTime)
             tvTotalTime = findViewById(R.id.tvTotalTime)
-            tvInstagramTime = findViewById(R.id.tvInstagramTime)
-//            tvYouTubeTime = findViewById(R.id.tvYouTubeTime)
-//            tvWhatsAppTime = findViewById(R.id.tvWhatsAppTime)
-            motivationalQuote = findViewById(R.id.tvMotivationalQuote)
+//            tvInstagramTime = findViewById(R.id.tvInstagramTime)
+            motivationalQuote = findViewById(R.id. tvMotivationalQuote)
             usageBarContainer = findViewById(R.id.usageBarContainer)
             usageDetailsContainer = findViewById(R.id.usageDetailsContainer)
+            btnShowMore = findViewById(R.id.btnShowMore)
         } catch (e: Exception) {
             // Log any view initialization errors
             e.printStackTrace()
@@ -62,10 +64,12 @@ class MainActivity : AppCompatActivity() {
             // Get and display total screen time
             val screenTime = getScreenTimeToday()
             tvTotalTime.text = screenTime
-//            tvScreenTime.text = "Today's Screen Time:"
 
-            // Populate usage statistics
-            populateUsageBarAndDetails()
+            // Get app usage stats
+            appUsageStats = getAppUsageStats()
+
+            // Populate usage statistics with only top 2 apps initially
+            populateUsageBarAndDetails(2)
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, "Error setting up usage stats", Toast.LENGTH_SHORT).show()
@@ -81,6 +85,18 @@ class MainActivity : AppCompatActivity() {
 
             findViewById<Button>(R.id.btnWeeklyTracking)?.setOnClickListener {
                 Toast.makeText(this, "Weekly Tracking clicked", Toast.LENGTH_SHORT).show()
+            }
+
+            // Show More button
+            btnShowMore.setOnClickListener {
+                showingAllApps = !showingAllApps
+                if (showingAllApps) {
+                    populateUsageBarAndDetails(5)
+                    btnShowMore.text = "Show Less"
+                } else {
+                    populateUsageBarAndDetails(2)
+                    btnShowMore.text = "Show More"
+                }
             }
 
             // Motivational quote
@@ -143,37 +159,27 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun populateUsageBarAndDetails() {
+    private fun populateUsageBarAndDetails(numAppsToShow: Int) {
         try {
-            val appUsageStats = getAppUsageStats()
             val totalScreenTime = appUsageStats.sumOf { it.second }
 
             // Clear existing views
             usageBarContainer.removeAllViews()
             usageDetailsContainer.removeAllViews()
 
-            // Split into top 10 and others
-            val top10Apps = appUsageStats.take(10)
-            val otherApps = appUsageStats.drop(10)
+            // Split into top N and others
+            val topApps = appUsageStats.take(numAppsToShow)
+            val otherApps = appUsageStats.drop(numAppsToShow)
 
             // Calculate total usage time for "Others" category
             val othersUsageTime = otherApps.sumOf { it.second }
 
-            // Combined list with top 10 apps and "Others" category
+            // Combined list with top N apps and "Others" category
             val displayList = if (othersUsageTime > 0) {
-                top10Apps + Pair("Others", othersUsageTime)
+                topApps + Pair("Others", othersUsageTime)
             } else {
-                top10Apps
+                topApps
             }
-
-//            // Update specific app TextViews with real data if available
-//            displayList.take(3).forEachIndexed { index, (appName, usageTime) ->
-//                when (index) {
-//                    0 -> tvInstagramTime.text = "$appName: ${formatUsageTime(usageTime)}"
-//                    1 -> tvYouTubeTime.text = "$appName: ${formatUsageTime(usageTime)}"
-//                    2 -> tvWhatsAppTime.text = "$appName: ${formatUsageTime(usageTime)}"
-//                }
-//            }
 
             // Add progress bars for each app in the display list
             displayList.forEach { (appName, usageTime) ->
@@ -185,18 +191,78 @@ class MainActivity : AppCompatActivity() {
                 }
                 usageBarContainer.addView(progressBarSegment)
 
-                // Add detailed usage stats
-                val appUsageText = TextView(this).apply {
-                    text = "$appName: ${formatUsageTime(usageTime)} (${(weight * 100).toInt()}%)"
-                    setPadding(8)
-                    setTextColor(Color.WHITE)
-                }
-                usageDetailsContainer.addView(appUsageText)
+                // Create app item layout
+                createAppUsageItem(appName, usageTime, weight, totalScreenTime)
             }
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, "Error populating usage statistics", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun createAppUsageItem(appName: String, usageTime: Long, weight: Float, totalScreenTime: Long) {
+        // Create the container layout
+        val appItemLayout = LinearLayout(this).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                setMargins(0, 0, 0, 8)
+            }
+            orientation = LinearLayout.HORIZONTAL
+            setBackgroundColor(Color.parseColor("#2A2D31"))
+            setPadding(12)
+            gravity = android.view.Gravity.CENTER_VERTICAL
+        }
+
+        // App icon (colored circle)
+        val appIcon = View(this).apply {
+            layoutParams = LinearLayout.LayoutParams(36, 36).apply {
+                marginEnd = 12
+            }
+            setBackgroundColor(getColorForApp(appName))
+        }
+        appItemLayout.addView(appIcon)
+
+        // App info container
+        val appInfoLayout = LinearLayout(this).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1f
+            )
+            orientation = LinearLayout.VERTICAL
+        }
+
+        // App name
+        val appNameTextView = TextView(this).apply {
+            text = appName
+            setTextColor(Color.WHITE)
+            textSize = 16f
+        }
+        appInfoLayout.addView(appNameTextView)
+
+        // App usage time
+        val appTimeTextView = TextView(this).apply {
+            text = formatUsageTime(usageTime)
+            setTextColor(Color.parseColor("#99AAB5"))
+            textSize = 14f
+        }
+        appInfoLayout.addView(appTimeTextView)
+
+        appItemLayout.addView(appInfoLayout)
+
+        // Usage percentage
+        val percentageTextView = TextView(this).apply {
+            text = "${(weight * 100).toInt()}%"
+            setTextColor(getColorForApp(appName))
+            textSize = 18f
+            setTypeface(null, android.graphics.Typeface.BOLD)
+        }
+        appItemLayout.addView(percentageTextView)
+
+        // Add the item to the container
+        usageDetailsContainer.addView(appItemLayout)
     }
 
     private fun getAppUsageStats(): List<Pair<String, Long>> {
