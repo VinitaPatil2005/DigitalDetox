@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DigitalDetox</string>
+    <string name="accessibility_service_description">My description of Accessibility Service</string>
 </resources>
