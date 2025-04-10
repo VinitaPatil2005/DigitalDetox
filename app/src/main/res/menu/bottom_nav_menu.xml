@@ -1,23 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/nav_focus_mode"
         android:icon="@drawable/ic_profile"
-        android:title="Focus" />
+        android:title="Focus Mode" />
 
     <item
         android:id="@+id/nav_set_limits"
         android:icon="@drawable/ic_profile"
-        android:title="Limits" />
-
-    <item
-        android:id="@+id/nav_profile"
-        android:icon="@drawable/ic_youtube"
-        android:title="Profile" />
+        android:title="Set Limits" />
 
     <item
         android:id="@+id/nav_chatbot"
         android:icon="@drawable/ic_profile"
         android:title="Chatbot" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile" />
 
 </menu>

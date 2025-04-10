@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvInstagramTime: TextView
     private lateinit var tvYouTubeTime: TextView
     private lateinit var tvWhatsAppTime: TextView
+    private lateinit var motivationalQuote: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,8 +26,11 @@ class MainActivity : AppCompatActivity() {
         tvYouTubeTime = findViewById(R.id.tvYouTubeTime)
         tvWhatsAppTime = findViewById(R.id.tvWhatsAppTime)
 
-        // Set screen time
+        // Set sample screen times
         tvScreenTime.text = "Today's Screen Time: 4 hr 30 min"
+        tvInstagramTime.text = "Instagram: 2 hr"
+        tvYouTubeTime.text = "YouTube: 1 hr 30 min"
+        tvWhatsAppTime.text = "WhatsApp: 1 hr"
 
         // Set onClickListeners for tracking buttons
         findViewById<Button>(R.id.btnDailyTracking).setOnClickListener {
@@ -37,7 +41,14 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Weekly Tracking clicked", Toast.LENGTH_SHORT).show()
         }
 
-        // Bottom Navigation
+        // Set onClickListener for motivational quote
+        motivationalQuote = findViewById(R.id.tvMotivationalQuote)
+        motivationalQuote.setOnClickListener {
+            val intent = Intent(this, StudentOptionsActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Bottom Navigation Item Clicks
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {

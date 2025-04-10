@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:background="#121212">
 
-    <!-- Scrollable Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,91 +17,147 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Welcome Section -->
+            <!-- Title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Welcome to"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Level up your focus"
-                android:textColor="#CCCCCC"
-                android:textSize="16sp" />
+                android:text="📱 Screen Time"
+                android:textColor="#BB86FC"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
 
             <!-- Tracking Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="8dp">
+                android:layout_marginBottom="20dp"
+                android:weightSum="2"
+                android:gravity="center">
 
                 <Button
                     android:id="@+id/btnDailyTracking"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
                     android:text="Daily Tracking"
+                    android:textStyle="bold"
+                    android:backgroundTint="#1F1B24"
+                    android:textColor="#BB86FC"
                     android:layout_marginEnd="8dp" />
 
                 <Button
                     android:id="@+id/btnWeeklyTracking"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_weight="1"
-                    android:text="Weekly Tracking" />
+                    android:text="Weekly Tracking"
+                    android:textStyle="bold"
+                    android:backgroundTint="#1F1B24"
+                    android:textColor="#BB86FC"
+                    android:layout_marginStart="8dp" />
             </LinearLayout>
 
-            <!-- Most Used Apps Section -->
+            <!-- Spacer -->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="130dp" />
+
+            <!-- Most Used Apps -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Most Used Apps"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_marginTop="16dp" />
+                android:layout_marginBottom="8dp" />
 
             <TextView
                 android:id="@+id/tvInstagramTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Instagram: 2 hr"
-                android:textColor="#FFFFFF"
+                android:textColor="#DDDDDD"
                 android:textSize="14sp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="4dp" />
 
             <TextView
                 android:id="@+id/tvYouTubeTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="YouTube: 1 hr 30 min"
-                android:textColor="#FFFFFF"
+                android:textColor="#DDDDDD"
                 android:textSize="14sp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="4dp" />
 
             <TextView
                 android:id="@+id/tvWhatsAppTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="WhatsApp: 1 hr"
-                android:textColor="#FFFFFF"
+                android:textColor="#DDDDDD"
                 android:textSize="14sp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="4dp" />
 
-            <!-- Screen Time Section -->
+            <!-- Total Screen Time -->
             <TextView
                 android:id="@+id/tvScreenTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Today's Screen Time: 0 hr 0 min"
-                android:textColor="#FFFFFF"
+                android:textColor="#BB86FC"
                 android:textSize="16sp"
-                android:layout_marginTop="16dp" />
+                android:textStyle="bold"
+                android:layout_marginTop="24dp" />
+
+            <!-- Student Prompt -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Are you a student?"
+                android:textColor="#CCCCCC"
+                android:textSize="16sp"
+                android:textStyle="italic"
+                android:layout_marginTop="24dp" />
+
+            <!-- Motivational Quote -->
+            <TextView
+                android:id="@+id/tvMotivationalQuote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="“The secret of getting ahead is getting started.”"
+                android:textColor="#00FFAA"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/quote_background"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- Spacer -->
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
+
+            <!-- Parental Control -->
+            <TextView
+                android:id="@+id/tvParentalControl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="👪 Parental Control"
+                android:textColor="#FF7D7D"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/quote_background"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true" />
         </LinearLayout>
     </ScrollView>
 
@@ -112,7 +167,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#111111"
+        android:background="#1F1B24"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
         app:menu="@menu/bottom_nav_menu" />
