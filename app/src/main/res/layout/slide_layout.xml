@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/slideLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Fullscreen Background ImageView -->
+
+    <!-- App Feature Text -->
+    <ImageView
+        android:id="@+id/slideBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/splashbg" />
+
+    <!-- dark transparent overlay -->
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000" />
+
+    <TextView
+        android:id="@+id/slideText"
+        android:layout_width="343dp"
+        android:layout_height="146dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="290dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="294dp"
+        android:fontFamily="@font/titilliumweb_regular"
+        android:gravity="center"
+        android:padding="24dp"
+        android:text="Feature goes here"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+</RelativeLayout>

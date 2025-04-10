@@ -1,0 +1,12 @@
+<resources>
+    <!-- Main App Theme -->
+    <style name="Theme.DigitalDetox" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+
+    <!-- Splash Theme -->
+    <style name="Theme.DigitalDetox.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        
+        <item name="android:fontFamily">@font/titilliumweb_regular</item>
+
+
+    </style>
+</resources>
