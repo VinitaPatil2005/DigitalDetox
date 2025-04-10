@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">DigitalDetox</string>
+<<<<<<< Updated upstream
     <string name="accessibility_service_description">My description of Accessibility Service</string>
+=======
+    <string-array name="session_types">
+        <item>Study</item>
+        <item>Activity</item>
+        <item>Break</item>
+    </string-array>
+
+>>>>>>> Stashed changes
 </resources>

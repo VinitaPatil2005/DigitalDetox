@@ -46,8 +46,6 @@
         <activity android:name=".SetLimitsActivity" />
         <activity android:name=".ui.ChallengesActivity"/>
         <activity android:name=".ui.ProfileActivity"/>
-        <activity android:name=".FocusModeActivity"/>
-        <activity android:name="FocusModeSettingActivity"/>
 
 
 
