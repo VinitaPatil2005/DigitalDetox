@@ -12,6 +12,11 @@
         android:title="Set Limits" />
 
     <item
+        android:id="@+id/parental_control"
+        android:icon="@drawable/parental_control"
+        android:title="Parental Control" />
+
+    <item
         android:id="@+id/nav_chatbot"
         android:icon="@drawable/chatbot"
         android:title="Chatbot" />

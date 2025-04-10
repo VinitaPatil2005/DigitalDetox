@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.generativeai)
     implementation(libs.androidx.ui.test.android)
+    implementation(libs.filament.android)
 
 
     testImplementation(libs.junit)
