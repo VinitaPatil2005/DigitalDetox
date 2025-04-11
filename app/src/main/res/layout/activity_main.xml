@@ -18,16 +18,19 @@
             android:padding="16dp">
 
             <!-- Enhanced Title with new styling -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="📱 Screen Time"
-                android:textColor="#BB86FC"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp" />
 
             <!-- Time display from second layout -->
+
+            <TextView
+                android:layout_width="305dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Screen Time"
+                android:textAlignment="center"
+                android:textColor="#BB86FC"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tvTotalTime"
                 android:layout_width="wrap_content"
@@ -39,16 +42,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="28dp" />
 
-            <!-- Total Screen Time from second layout -->
-            <TextView
-                android:id="@+id/tvScreenTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Today's Screen Time: 0 hr 0 min"
-                android:textColor="#BB86FC"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp" />
 
             <!-- Tracking Buttons -->
             <LinearLayout
@@ -130,33 +123,7 @@
             </LinearLayout>
 
             <!-- Most Used Apps - Specific Apps from second layout -->
-            <TextView
-                android:id="@+id/tvInstagramTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Instagram: 2 hr"
-                android:textColor="#DDDDDD"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp" />
 
-            <TextView
-                android:id="@+id/tvYouTubeTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="YouTube: 1 hr 30 min"
-                android:textColor="#DDDDDD"
-                android:textSize="14sp"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:id="@+id/tvWhatsAppTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="WhatsApp: 1 hr"
-                android:textColor="#DDDDDD"
-                android:textSize="14sp"
-                android:layout_marginBottom="12dp" />
 
             <!-- App Usage Details Container -->
             <LinearLayout

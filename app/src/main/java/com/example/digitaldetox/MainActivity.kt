@@ -50,19 +50,13 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
         setupUsageStats()
 
-        tvScreenTime.text = ""
-        tvInstagramTime.text = ""
-        tvYouTubeTime.text = ""
-        tvWhatsAppTime.text = ""
     }
 
     private fun initializeViews() {
         try {
-            tvScreenTime = findViewById(R.id.tvScreenTime)
+//            tvScreenTime = findViewById(R.id.tvScreenTime)
             tvTotalTime = findViewById(R.id.tvTotalTime)
-            tvInstagramTime = findViewById(R.id.tvInstagramTime)
-            tvYouTubeTime = findViewById(R.id.tvYouTubeTime)
-            tvWhatsAppTime = findViewById(R.id.tvWhatsAppTime)
+
             motivationalQuote = findViewById(R.id.tvMotivationalQuote)
             usageBarContainer = findViewById(R.id.usageBarContainer)
             usageDetailsContainer = findViewById(R.id.usageDetailsContainer)
@@ -239,15 +233,17 @@ class MainActivity : AppCompatActivity() {
             usageBarContainer.removeAllViews()
             usageDetailsContainer.removeAllViews()
 
-            val topApps = appUsageStats.take(5)
-            val otherApps = appUsageStats.drop(5)
+            // Always show top 5-6 apps in the progress bar
+            val topAppsForBar = appUsageStats.take(6)
+            val otherAppsForBar = appUsageStats.drop(6)
 
-            val othersUsageTime = otherApps.sumOf { it.second }
+            val othersUsageTime = otherAppsForBar.sumOf { it.second }
 
             val displayBarList = if (othersUsageTime > 0) {
-                topApps + Pair("Others", othersUsageTime)
-            } else topApps
+                topAppsForBar + Pair("Others", othersUsageTime)
+            } else topAppsForBar
 
+            // Add segments to the progress bar
             displayBarList.forEach { (appName, usageTime) ->
                 val weight = usageTime.toFloat() / totalScreenTime.toFloat()
                 val progressBarSegment = LinearLayout(this).apply {
@@ -257,16 +253,24 @@ class MainActivity : AppCompatActivity() {
                 usageBarContainer.addView(progressBarSegment)
             }
 
-            // Show more or less in the details
+            // For details list, show either top 3 or top 5-6 based on collapsed/expanded state
             val displayDetailsList = if (showingAllApps) {
-                appUsageStats
+                appUsageStats.take(6) // Show top 5-6 apps when expanded
             } else {
-                topApps
+                appUsageStats.take(3) // Show only top 3 apps when collapsed
             }
 
             displayDetailsList.forEach { (appName, usageTime) ->
                 val weight = usageTime.toFloat() / totalScreenTime.toFloat()
                 createAppUsageItem(appName, usageTime, weight, totalScreenTime)
+            }
+
+            // Update the "Show More/Less" button text based on the number of apps
+            if (appUsageStats.size <= 3) {
+                btnShowMore.visibility = View.GONE // Hide button if there are 3 or fewer apps
+            } else {
+                btnShowMore.visibility = View.VISIBLE
+                btnShowMore.text = if (showingAllApps) "Show Less" else "Show More"
             }
 
         } catch (e: Exception) {
