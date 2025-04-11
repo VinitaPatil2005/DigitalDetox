@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/coupon_background">
+
+    <TextView
+        android:id="@+id/tvCouponTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coupon Title"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvCouponCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Code: XYZ123"
+        android:textColor="#FFEB3B"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp" />
+
+    <TextView
+        android:id="@+id/tvCouponValidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Valid: 12 Apr 2025 - 27 Apr 2025"
+        android:textColor="#CCCCCC"
+        android:textSize="12sp"
+        android:layout_marginTop="2dp" />
+</LinearLayout>

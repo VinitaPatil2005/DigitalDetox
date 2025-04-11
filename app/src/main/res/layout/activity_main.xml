@@ -22,7 +22,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="📱 Screen Time"
-                android:textColor="#BB86FC"
+                android:textColor="@color/white"
+                android:fontFamily="@font/titilliumweb_bold"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
@@ -39,16 +40,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="28dp" />
 
-            <!-- Total Screen Time from second layout -->
-            <TextView
-                android:id="@+id/tvScreenTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Today's Screen Time: 0 hr 0 min"
-                android:textColor="#BB86FC"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="16dp" />
 
             <!-- Tracking Buttons -->
             <LinearLayout
@@ -61,10 +52,11 @@
 
                 <Button
                     android:id="@+id/btnDailyTracking"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Daily Tracking"
+                    android:fontFamily="@font/titilliumweb_regular"
                     android:textStyle="bold"
                     android:backgroundTint="#1F1B24"
                     android:textColor="#BB86FC"
@@ -72,9 +64,10 @@
 
                 <Button
                     android:id="@+id/btnWeeklyTracking"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/titilliumweb_regular"
                     android:text="Weekly Tracking"
                     android:textStyle="bold"
                     android:backgroundTint="#1F1B24"
@@ -129,34 +122,6 @@
                     android:textAllCaps="false" />
             </LinearLayout>
 
-            <!-- Most Used Apps - Specific Apps from second layout -->
-            <TextView
-                android:id="@+id/tvInstagramTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Instagram: 2 hr"
-                android:textColor="#DDDDDD"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:id="@+id/tvYouTubeTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="YouTube: 1 hr 30 min"
-                android:textColor="#DDDDDD"
-                android:textSize="14sp"
-                android:layout_marginBottom="4dp" />
-
-            <TextView
-                android:id="@+id/tvWhatsAppTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="WhatsApp: 1 hr"
-                android:textColor="#DDDDDD"
-                android:textSize="14sp"
-                android:layout_marginBottom="12dp" />
 
             <!-- App Usage Details Container -->
             <LinearLayout
@@ -238,22 +203,6 @@
                         android:layout_marginTop="2dp" />
                 </LinearLayout>
             </LinearLayout>
-
-            <!-- Parental Control -->
-            <TextView
-                android:id="@+id/tvParentalControl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="👪 Parental Control"
-                android:textColor="#FF7D7D"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:background="@drawable/quote_background"
-                android:padding="12dp"
-                android:layout_marginTop="16dp"
-                android:clickable="true"
-                android:focusable="true" />
 
             <!-- Spacer -->
             <Space

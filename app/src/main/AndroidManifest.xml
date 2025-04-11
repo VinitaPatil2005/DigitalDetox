@@ -56,7 +56,10 @@
         <activity android:name=".ui.ChallengesActivity" />
         <activity android:name=".ui.ProfileActivity" />
         <activity android:name=".FocusModeActivity" />
+        <activity android:name=".ui.YogaDetailActivity"/>
+        <activity android:name=".ui.DanceDetailActivity"/>
         <activity android:name=".ui.FocusModeSettingActivity" />
+        <activity android:name=".ui.PomodoroActivity"/>
 
 
         <service

@@ -16,8 +16,10 @@ import androidx.core.view.setPadding
 import com.example.digitaldetox.ui.ChallengesActivity
 import com.example.digitaldetox.ui.ProfileActivity
 import com.example.digitaldetox.ui.SetLimitsActivity
+import com.example.digitaldetox.ui.ParentalControlActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,6 +53,7 @@ class MainActivity : AppCompatActivity() {
     private fun initializeViews() {
         try {
             tvTotalTime = findViewById(R.id.tvTotalTime)
+
             motivationalQuote = findViewById(R.id.tvMotivationalQuote)
             usageBarContainer = findViewById(R.id.usageBarContainer)
             usageDetailsContainer = findViewById(R.id.usageDetailsContainer)
@@ -109,6 +112,44 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+//    private fun setupBottomNavigation() {
+//        try {
+//            val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+//            bottomNav?.setOnItemSelectedListener { item ->
+//                when (item.itemId) {
+//                    R.id.nav_focus_mode -> {
+//                        val intent = Intent(this, FocusModeActivity::class.java)
+//                        startActivity(intent)
+//                        true
+//                    }
+//                    R.id.nav_set_limits -> {
+//                        val intent = Intent(this, SetLimitsActivity::class.java)
+//                        startActivity(intent)
+//                        true
+//                    }
+//                    R.id.parental_control -> {
+//                        Toast.makeText(this, "Parental Control clicked", Toast.LENGTH_SHORT).show()
+//                        true
+//                    }
+//                    R.id.nav_profile -> {
+//                        val intent = Intent(this, ProfileActivity::class.java)
+//                        startActivity(intent)
+//                        true
+//                    }
+//                    R.id.nav_chatbot -> {
+//                        val intent = Intent(this, ChatbotActivity::class.java)
+//                        startActivity(intent)
+//                        true
+//                    }
+//                    else -> false
+//                }
+//            }
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//            Toast.makeText(this, "Error setting up bottom navigation", Toast.LENGTH_SHORT).show()
+//        }
+//    }
+
     private fun setupBottomNavigation() {
         try {
             val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -125,7 +166,8 @@ class MainActivity : AppCompatActivity() {
                         true
                     }
                     R.id.parental_control -> {
-                        Toast.makeText(this, "Parental Control clicked", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, ParentalControlActivity::class.java)
+                        startActivity(intent)
                         true
                     }
                     R.id.nav_profile -> {
@@ -146,6 +188,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Error setting up bottom navigation", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun getScreenTimeToday(range: TimeRange): String {
         return try {
@@ -227,15 +270,17 @@ class MainActivity : AppCompatActivity() {
             usageBarContainer.removeAllViews()
             usageDetailsContainer.removeAllViews()
 
-            val topApps = appUsageStats.take(5)
-            val otherApps = appUsageStats.drop(5)
+            // Always show top 5-6 apps in the progress bar
+            val topAppsForBar = appUsageStats.take(6)
+            val otherAppsForBar = appUsageStats.drop(6)
 
-            val othersUsageTime = otherApps.sumOf { it.second }
+            val othersUsageTime = otherAppsForBar.sumOf { it.second }
 
             val displayBarList = if (othersUsageTime > 0) {
-                topApps + Pair("Others", othersUsageTime)
-            } else topApps
+                topAppsForBar + Pair("Others", othersUsageTime)
+            } else topAppsForBar
 
+            // Add segments to the progress bar
             displayBarList.forEach { (appName, usageTime) ->
                 val weight = usageTime.toFloat() / totalScreenTime.toFloat()
                 val progressBarSegment = LinearLayout(this).apply {
@@ -245,16 +290,24 @@ class MainActivity : AppCompatActivity() {
                 usageBarContainer.addView(progressBarSegment)
             }
 
-            // Show more or less in the details
+            // For details list, show either top 3 or top 5-6 based on collapsed/expanded state
             val displayDetailsList = if (showingAllApps) {
-                appUsageStats
+                appUsageStats.take(6) // Show top 5-6 apps when expanded
             } else {
-                topApps
+                appUsageStats.take(3) // Show only top 3 apps when collapsed
             }
 
             displayDetailsList.forEach { (appName, usageTime) ->
                 val weight = usageTime.toFloat() / totalScreenTime.toFloat()
                 createAppUsageItem(appName, usageTime, weight, totalScreenTime)
+            }
+
+            // Update the "Show More/Less" button text based on the number of apps
+            if (appUsageStats.size <= 3) {
+                btnShowMore.visibility = View.GONE // Hide button if there are 3 or fewer apps
+            } else {
+                btnShowMore.visibility = View.VISIBLE
+                btnShowMore.text = if (showingAllApps) "Show Less" else "Show More"
             }
 
         } catch (e: Exception) {

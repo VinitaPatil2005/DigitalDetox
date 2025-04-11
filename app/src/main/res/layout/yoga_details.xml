@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".YogaDetailActivity">
+    tools:context=".ui.YogaDetailActivity">
 
     <LinearLayout
         android:id="@+id/classCardContainer"
@@ -67,11 +67,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter Referral Code"
+            android:fontFamily="@font/titilliumweb_regular"
             android:background="@drawable/bg_edittext"
             android:padding="12dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="12dp"
-            android:textColor="#000000"
+            android:textColor="@color/white"
             android:textColorHint="#888888" />
 
         <!-- Enter Button -->
@@ -80,6 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Enter"
+            android:fontFamily="@font/titilliumweb_regular"
             android:backgroundTint="@color/purple_500"
             android:textColor="#FFFFFF"
             android:padding="12dp" />

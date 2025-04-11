@@ -4,16 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.digitaldetox.R
-import com.example.digitaldetox.YogaDetailActivity
-import com.example.digitaldetox.DanceDetailActivity
-
+import com.example.digitaldetox.ui.Coupon
+import com.example.digitaldetox.utils.CouponUtils
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -21,14 +19,11 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var llRewardsSection: LinearLayout
     private lateinit var tvCoins: TextView
     private var rewardsVisible = false
-
-    // Dummy coins data
-    private var totalCoins = 120 // Assume the user starts with 120 coins
+    private var totalCoins = 120 // Example
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-
 
         val yogaCard = findViewById<LinearLayout>(R.id.yogacard)
         val danceCard = findViewById<LinearLayout>(R.id.dance)
@@ -45,60 +40,36 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-        // TextViews and Section
-        val tvUserName = findViewById<TextView>(R.id.tvUserName)
-        val tvUserEmail = findViewById<TextView>(R.id.tvUserEmail)
         tvCoins = findViewById(R.id.tvTotalCoins)
-//        val tvCoupons = findViewById<TextView>(R.id.tvCoupons)
-
-        // Toggle Section
         tvRewardsToggle = findViewById(R.id.tvRewardsToggle)
         llRewardsSection = findViewById(R.id.llRewardsSection)
 
-        // Load the blink animation
-        val blink = AnimationUtils.loadAnimation(this, R.anim.blink_anim)
+        findViewById<TextView>(R.id.tvUserName).text = "Vinita Patil"
+        findViewById<TextView>(R.id.tvUserEmail).text = "vinita@email.com"
 
-        // Start blinking for each discount TextView
+        val blink = AnimationUtils.loadAnimation(this, R.anim.blink_anim)
         findViewById<TextView>(R.id.tvYogaDiscount).startAnimation(blink)
         findViewById<TextView>(R.id.tvDanceDiscount).startAnimation(blink)
         findViewById<TextView>(R.id.tvGymDiscount).startAnimation(blink)
         findViewById<TextView>(R.id.tvCoachingDiscount).startAnimation(blink)
 
-        // Dummy data (can be dynamic later)
-        tvUserName.text = "Vinita Patil"
-        tvUserEmail.text = "vinita@email.com"
-//        tvCoupons.text = "Redeem Coins"
-
-        // Update total coins on load
         updateCoinDisplay()
 
-        // Toggle rewards visibility
         tvRewardsToggle.setOnClickListener {
             toggleRewardsVisibility()
         }
 
-        // Redeem Coins Button
-        val redeemBtn = findViewById<TextView>(R.id.btnRedeemCoins)
-        redeemBtn.setOnClickListener {
-            if (totalCoins >= 50) {
-                AlertDialog.Builder(this)
-                    .setTitle("Redeem Coins")
-                    .setMessage(
-                        "You have $totalCoins coins.\n\nYou can redeem them for discounts at:\n\n✔ Yoga Studios\n✔ Gyms\n✔ Coaching Classes\n✔ Dance Centers\n\nRedeem now?"
-                    )
-                    .setPositiveButton("Redeem") { dialog, _ ->
-                        // Deduct coins and navigate to RedeemCoinActivity
-                        totalCoins -= 50
-                        updateCoinDisplay()
-                        val intent = Intent(this, RedeemCoinActivity::class.java)
-                        startActivity(intent)
-                        dialog.dismiss()
-                    }
-                    .setNegativeButton("Cancel", null)
-                    .show()
+        val tvViewCoupons = findViewById<TextView>(R.id.tvViewCoupons)
+        val llCouponsSection = findViewById<LinearLayout>(R.id.llCouponsSection)
+
+        tvViewCoupons.setOnClickListener {
+            if (llCouponsSection.visibility == View.GONE) {
+                llCouponsSection.visibility = View.VISIBLE
+                tvViewCoupons.text = "Hide My Coupons ▲"
+                showSavedCoupons(llCouponsSection)
             } else {
-                Toast.makeText(this, "You need at least 50 coins to redeem!", Toast.LENGTH_SHORT).show()
+                llCouponsSection.visibility = View.GONE
+                tvViewCoupons.text = "View My Coupons ▶"
             }
         }
     }
@@ -112,4 +83,46 @@ class ProfileActivity : AppCompatActivity() {
     private fun updateCoinDisplay() {
         tvCoins.text = "Total Coins: $totalCoins"
     }
+
+    private fun showSavedCoupons(container: LinearLayout) {
+        val coupons = CouponUtils.loadCoupons(this)
+        container.removeAllViews()
+
+        if (coupons.isEmpty()) {
+            val noCouponView = TextView(this).apply {
+                text = "No coupons available yet."
+                setTextColor(resources.getColor(android.R.color.white))
+                textSize = 14f
+                setPadding(12, 12, 12, 12)
+            }
+            container.addView(noCouponView)
+            return
+        }
+
+        val dateFormat = SimpleDateFormat("dd MMM yyyy", Locale.getDefault())
+
+        for (coupon in coupons) {
+            val view = layoutInflater.inflate(R.layout.coupon_item, null)
+
+            val title = view.findViewById<TextView>(R.id.tvCouponTitle)
+            val code = view.findViewById<TextView>(R.id.tvCouponCode)
+            val validity = view.findViewById<TextView>(R.id.tvCouponValidity)
+
+            title.text = coupon.title
+            code.text = "Code: ${coupon.code}"
+            validity.text = "Valid: ${dateFormat.format(Date(coupon.issuedDate))} - ${dateFormat.format(Date(coupon.expiryDate))}"
+
+            // 👉 Add spacing between coupons
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply {
+                setMargins(0, 0, 0, 24) // bottom margin between cards
+            }
+
+            view.layoutParams = params
+            container.addView(view)
+        }
+    }
+
 }
