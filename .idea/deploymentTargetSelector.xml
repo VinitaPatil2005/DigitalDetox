@@ -2,16 +2,8 @@
 <project version="4">
   <component name="deploymentTargetSelector">
     <selectionStates>
-      <SelectionState runConfigName="app">
+      <SelectionState runConfigName="DigitalDetox.app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2025-04-11T08:15:46.884661400Z">
-          <Target type="DEFAULT_BOOT">
-            <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=RZ8R412S5TZ" />
-            </handle>
-          </Target>
-        </DropdownSelection>
-        <DialogSelection />
       </SelectionState>
     </selectionStates>
   </component>

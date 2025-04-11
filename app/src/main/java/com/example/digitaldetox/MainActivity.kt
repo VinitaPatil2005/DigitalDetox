@@ -16,8 +16,10 @@ import androidx.core.view.setPadding
 import com.example.digitaldetox.ui.ChallengesActivity
 import com.example.digitaldetox.ui.ProfileActivity
 import com.example.digitaldetox.ui.SetLimitsActivity
+import com.example.digitaldetox.ui.ParentalControlActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -115,6 +117,44 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+//    private fun setupBottomNavigation() {
+//        try {
+//            val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+//            bottomNav?.setOnItemSelectedListener { item ->
+//                when (item.itemId) {
+//                    R.id.nav_focus_mode -> {
+//                        val intent = Intent(this, FocusModeActivity::class.java)
+//                        startActivity(intent)
+//                        true
+//                    }
+//                    R.id.nav_set_limits -> {
+//                        val intent = Intent(this, SetLimitsActivity::class.java)
+//                        startActivity(intent)
+//                        true
+//                    }
+//                    R.id.parental_control -> {
+//                        Toast.makeText(this, "Parental Control clicked", Toast.LENGTH_SHORT).show()
+//                        true
+//                    }
+//                    R.id.nav_profile -> {
+//                        val intent = Intent(this, ProfileActivity::class.java)
+//                        startActivity(intent)
+//                        true
+//                    }
+//                    R.id.nav_chatbot -> {
+//                        val intent = Intent(this, ChatbotActivity::class.java)
+//                        startActivity(intent)
+//                        true
+//                    }
+//                    else -> false
+//                }
+//            }
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//            Toast.makeText(this, "Error setting up bottom navigation", Toast.LENGTH_SHORT).show()
+//        }
+//    }
+
     private fun setupBottomNavigation() {
         try {
             val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -131,7 +171,8 @@ class MainActivity : AppCompatActivity() {
                         true
                     }
                     R.id.parental_control -> {
-                        Toast.makeText(this, "Parental Control clicked", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, ParentalControlActivity::class.java)
+                        startActivity(intent)
                         true
                     }
                     R.id.nav_profile -> {
@@ -152,6 +193,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Error setting up bottom navigation", Toast.LENGTH_SHORT).show()
         }
     }
+
 
     private fun getScreenTimeToday(range: TimeRange): String {
         return try {
