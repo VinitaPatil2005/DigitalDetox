@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#F2F2F2"
+    android:background="@color/black"
     android:padding="24dp">
 
     <!-- Main Card Container -->
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="24dp"
-        android:background="@drawable/bg_card"
+        android:background="@drawable/rounded_card_bg"
         android:gravity="center"
         android:elevation="6dp">
 
@@ -22,9 +22,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Redemption Status"
+            android:fontFamily="@font/titilliumweb_bold"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="#222222"
+            android:textColor="@color/white"
             android:gravity="center" />
 
         <!-- Line Separator -->
@@ -33,16 +34,17 @@
             android:layout_height="2dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:background="#3F51B5" />
+            android:background="@color/purple_200" />
 
         <!-- Redeem Code -->
         <TextView
             android:id="@+id/tvRedeemCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/titilliumweb_regular"
             android:text="XXXX-XXXX"
             android:textSize="18sp"
-            android:textColor="#3F51B5"
+            android:textColor="@color/purple_200"
             android:textStyle="italic"
             android:gravity="center" />
 

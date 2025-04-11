@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">DigitalDetox</string>
     <string name="accessibility_service_description">My description of Accessibility Service</string>
+    <string name="focus_mode_service">Helps you stay focused by monitoring and blocking distractions.</string>
+    <string name="focus_mode_service_description">Focus Mode blocks distracting apps</string>
 
     <string-array name="session_types">
         <item>Study</item>

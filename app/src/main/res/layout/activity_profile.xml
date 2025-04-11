@@ -93,18 +93,81 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content" />
 
-            <!-- Redeem Coins Button -->
+            <!-- View Coupons Option -->
             <TextView
-                android:id="@+id/btnRedeemCoins"
+                android:id="@+id/tvViewCoupons"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#00FFAA"
-                android:text="Redeem Coins"
+                android:text="View My Coupons ▶"
                 android:textColor="#FFD700"
+                android:textSize="16sp"
                 android:fontFamily="@font/titilliumweb_regular"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
-                android:layout_marginBottom="24dp" />
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- Coupons Container -->
+            <LinearLayout
+                android:id="@+id/llCouponsSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:padding="8dp"
+                android:background="#3A3450"
+                android:layout_marginBottom="12dp"
+                android:layout_gravity="center_horizontal"
+                android:elevation="2dp">
+
+                <!-- Example Coupon Card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/coupon_background"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/coupon"
+                        android:layout_marginEnd="8dp"
+                        app:tint="#FFD700" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:text="Yoga Coupon - 15% OFF"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/titilliumweb_regular" />
+
+                        <TextView
+                            android:text="Valid until: 25-Apr-2025"
+                            android:textColor="#CCCCCC"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/titilliumweb_regular"
+                            android:layout_marginTop="2dp"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- You can dynamically add more coupons here via Java/Kotlin -->
+
+            </LinearLayout>
+
+
+
 
             <TextView
                 android:text="Discount Available On:"
@@ -129,10 +192,14 @@
 
                 <!-- Yoga Card -->
                 <LinearLayout
+                    android:id="@+id/yogacard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:background="#FF6F61"
                     android:layout_marginBottom="8dp"
                     android:gravity="center_vertical"
@@ -175,8 +242,12 @@
 
                 <!-- Dance Card -->
                 <LinearLayout
+                    android:id="@+id/dance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:orientation="horizontal"
                     android:padding="12dp"
                     android:background="#42A5F5"
@@ -221,8 +292,12 @@
 
                 <!-- Gym Card -->
                 <LinearLayout
+                    android:id="@+id/gym"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:orientation="horizontal"
                     android:padding="12dp"
                     android:background="#66BB6A"
@@ -267,9 +342,13 @@
 
                 <!-- Coaching Card -->
                 <LinearLayout
+                    android:id="@+id/coaching"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:padding="12dp"
                     android:background="#AB47BC"
                     android:gravity="center_vertical"

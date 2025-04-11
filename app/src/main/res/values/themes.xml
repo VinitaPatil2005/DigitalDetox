@@ -14,4 +14,11 @@
         <item name="android:fontFamily">@font/titilliumweb_regular</item>
         <item name="android:windowBackground">@drawable/splashbg</item>
     </style>
+    <style name="Theme.DigitalDetox.Transparent" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
 </resources>

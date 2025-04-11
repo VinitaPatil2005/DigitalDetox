@@ -4,7 +4,5 @@
     android:accessibilityFeedbackType="feedbackGeneric"
     android:notificationTimeout="100"
     android:canRetrieveWindowContent="true"
-    android:accessibilityFlags="flagDefault"
-    android:description="@string/accessibility_service_description"
-    android:settingsActivity=""
-    />
+    android:description="@string/focus_mode_service_description"
+    android:accessibilityFlags="flagDefault" />

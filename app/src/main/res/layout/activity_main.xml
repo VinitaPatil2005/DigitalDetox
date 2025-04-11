@@ -18,19 +18,17 @@
             android:padding="16dp">
 
             <!-- Enhanced Title with new styling -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📱 Screen Time"
+                android:textColor="@color/white"
+                android:fontFamily="@font/titilliumweb_bold"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
 
             <!-- Time display from second layout -->
-
-            <TextView
-                android:layout_width="305dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="Screen Time"
-                android:textAlignment="center"
-                android:textColor="#BB86FC"
-                android:textSize="36sp"
-                android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/tvTotalTime"
                 android:layout_width="wrap_content"
@@ -54,10 +52,11 @@
 
                 <Button
                     android:id="@+id/btnDailyTracking"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Daily Tracking"
+                    android:fontFamily="@font/titilliumweb_regular"
                     android:textStyle="bold"
                     android:backgroundTint="#1F1B24"
                     android:textColor="#BB86FC"
@@ -65,9 +64,10 @@
 
                 <Button
                     android:id="@+id/btnWeeklyTracking"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/titilliumweb_regular"
                     android:text="Weekly Tracking"
                     android:textStyle="bold"
                     android:backgroundTint="#1F1B24"
@@ -121,8 +121,6 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:textAllCaps="false" />
             </LinearLayout>
-
-            <!-- Most Used Apps - Specific Apps from second layout -->
 
 
             <!-- App Usage Details Container -->
@@ -205,22 +203,6 @@
                         android:layout_marginTop="2dp" />
                 </LinearLayout>
             </LinearLayout>
-
-            <!-- Parental Control -->
-            <TextView
-                android:id="@+id/tvParentalControl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="👪 Parental Control"
-                android:textColor="#FF7D7D"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:background="@drawable/quote_background"
-                android:padding="12dp"
-                android:layout_marginTop="16dp"
-                android:clickable="true"
-                android:focusable="true" />
 
             <!-- Spacer -->
             <Space

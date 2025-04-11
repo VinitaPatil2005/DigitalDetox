@@ -23,11 +23,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var tvScreenTime: TextView
     private lateinit var tvTotalTime: TextView
-    private lateinit var tvInstagramTime: TextView
-    private lateinit var tvYouTubeTime: TextView
-    private lateinit var tvWhatsAppTime: TextView
     private lateinit var motivationalQuote: TextView
     private lateinit var usageBarContainer: LinearLayout
     private lateinit var usageDetailsContainer: LinearLayout
@@ -56,7 +52,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initializeViews() {
         try {
-//            tvScreenTime = findViewById(R.id.tvScreenTime)
             tvTotalTime = findViewById(R.id.tvTotalTime)
 
             motivationalQuote = findViewById(R.id.tvMotivationalQuote)
