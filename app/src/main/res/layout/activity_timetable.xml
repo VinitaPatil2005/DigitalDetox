@@ -10,22 +10,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="📅 Design Your Timetable"
-        android:textColor="#BB86FC"
+        android:fontFamily="@font/titilliumweb_regular"
+        android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginBottom="20dp" />
 
+    <!-- Day -->
     <EditText
         android:id="@+id/editDay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Day (e.g., Monday)"
         android:inputType="text"
+        android:textSize="17dp"
+        android:fontFamily="@font/titilliumweb_regular"
         android:textColor="#FFFFFF"
-        android:textColorHint="#AA88FF"
-        android:background="@drawable/purple_edittext"
-        android:layout_marginBottom="10dp" />
+        android:textColorHint="#818181"
+        android:background="@android:color/transparent"
+        android:paddingBottom="4dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="14dp"
+        android:background="#BB86FC" />
 
+    <!-- Type -->
     <EditText
         android:id="@+id/editType"
         android:layout_width="match_parent"
@@ -33,38 +43,86 @@
         android:hint="Type: Study / Break / Activity"
         android:inputType="text"
         android:textColor="#FFFFFF"
-        android:textColorHint="#AA88FF"
-        android:background="@drawable/purple_edittext"
-        android:layout_marginBottom="10dp" />
+        android:textSize="17dp"
+        android:fontFamily="@font/titilliumweb_regular"
+        android:textColorHint="#818181"
+        android:background="@android:color/transparent"
+        android:paddingBottom="4dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="14dp"
+        android:background="#BB86FC" />
 
+    <!-- Subject -->
     <EditText
         android:id="@+id/editSubject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter Subject/Activity"
+        android:fontFamily="@font/titilliumweb_regular"
         android:inputType="text"
+        android:textSize="17dp"
         android:textColor="#FFFFFF"
-        android:textColorHint="#AA88FF"
-        android:background="@drawable/purple_edittext"
-        android:layout_marginBottom="10dp" />
+        android:textColorHint="#818181"
+        android:background="@android:color/transparent"
+        android:paddingBottom="4dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="14dp"
+        android:background="#BB86FC" />
 
+    <!-- Time -->
+    <!-- Start Time -->
     <EditText
-        android:id="@+id/editTime"
+        android:id="@+id/editStartTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Time Slot (e.g., 10:00 - 11:00)"
-        android:inputType="text"
+        android:hint="Start Time"
+        android:fontFamily="@font/titilliumweb_regular"
+        android:textSize="17dp"
         android:textColor="#FFFFFF"
-        android:textColorHint="#AA88FF"
-        android:background="@drawable/purple_edittext"
-        android:layout_marginBottom="12dp" />
+        android:textColorHint="#818181"
+        android:background="@android:color/transparent"
+        android:paddingBottom="4dp"
+        android:focusable="false"
+        android:inputType="none" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="14dp"
+        android:background="#BB86FC" />
 
+    <!-- End Time -->
+    <EditText
+        android:id="@+id/editEndTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="End Time"
+        android:fontFamily="@font/titilliumweb_regular"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#818181"
+        android:background="@android:color/transparent"
+        android:paddingBottom="4dp"
+        android:textSize="17dp"
+        android:focusable="false"
+        android:inputType="none" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="14dp"
+        android:background="#BB86FC" />
+
+    <!-- Button -->
     <Button
         android:id="@+id/btnAddToTimetable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add"
+        android:fontFamily="@font/titilliumweb_regular"
         android:layout_gravity="center"
+        android:textSize="14dp"
         android:textColor="#121212"
         android:backgroundTint="#BB86FC"
         android:textStyle="bold"
@@ -74,6 +132,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="🗓 Your Timetable:"
+        android:fontFamily="@font/titilliumweb_regular"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -85,11 +144,10 @@
         android:layout_marginTop="8dp"
         android:background="#1A1A1A">
 
-        <LinearLayout
-            android:id="@+id/timetableList"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp" />
+            android:background="#1A1A1A" />
     </ScrollView>
 </LinearLayout>

@@ -9,13 +9,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_gravity="center"
         android:gravity="center_horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            
             android:text="🎓 Student Tools"
-            android:textColor="#BB86FC"
+            android:fontFamily="@font/titilliumweb_bold"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginBottom="20dp" />
@@ -27,8 +30,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="🗓 Design a Timetable"
-            android:textColor="#BB86FC"
+            android:textColor="@color/white"
             android:background="@drawable/outline_button"
+            android:fontFamily="@font/titilliumweb_regular"
             android:layout_marginBottom="12dp"
             android:padding="12dp" />
 
@@ -38,7 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="🧘‍♂️ Focus Rituals"
-            android:textColor="#BB86FC"
+            android:textColor="@color/white"
+            android:fontFamily="@font/titilliumweb_regular"
             android:background="@drawable/outline_button"
             android:layout_marginBottom="12dp"
             android:padding="12dp" />
@@ -49,7 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="⏱ Pomodoro Focus"
-            android:textColor="#BB86FC"
+            android:textColor="@color/white"
+            android:fontFamily="@font/titilliumweb_regular"
             android:background="@drawable/outline_button"
             android:layout_marginBottom="12dp"
             android:padding="12dp" />
@@ -63,7 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="💡 Study Tips"
-            android:textColor="#BB86FC"
+            android:textColor="@color/white"
+            android:fontFamily="@font/titilliumweb_regular"
             android:background="@drawable/outline_button"
             android:layout_marginBottom="24dp"
             android:padding="12dp" />
