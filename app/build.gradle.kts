@@ -51,9 +51,11 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.okhttp)
     implementation(libs.generativeai)
+    implementation ("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
 
 
-    testImplementation(libs.junit)
+
+testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 

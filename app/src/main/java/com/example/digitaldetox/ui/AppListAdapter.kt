@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.digitaldetox.ui.SetLimitsActivity
 
 class AppListAdapter(private val appList: List<SetLimitsActivity.AppItem>) :
     RecyclerView.Adapter<AppListAdapter.AppViewHolder>() {

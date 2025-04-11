@@ -1,5 +1,6 @@
 package com.example.digitaldetox
 
+import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.content.Intent
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.setPadding
 import com.example.digitaldetox.ui.ChallengesActivity
 import com.example.digitaldetox.ui.ProfileActivity
+import com.example.digitaldetox.ui.SetLimitsActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
@@ -32,21 +34,22 @@ class MainActivity : AppCompatActivity() {
     private var appUsageStats: List<Pair<String, Long>> = emptyList()
     private lateinit var gamificationCard: LinearLayout
 
+    private var currentRange = TimeRange.DAILY
+
+    enum class TimeRange {
+        DAILY,
+        WEEKLY
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Initialize views first
         initializeViews()
-
-        // Then set up everything else
         setupClickListeners()
         setupBottomNavigation()
-
-        // Setup usage stats last since it depends on views being initialized
         setupUsageStats()
 
-        // Set sample screen times for specific apps
         tvScreenTime.text = "Today's Screen Time: 4 hr 30 min"
         tvInstagramTime.text = "Instagram: 2 hr"
         tvYouTubeTime.text = "YouTube: 1 hr 30 min"
@@ -66,7 +69,6 @@ class MainActivity : AppCompatActivity() {
             btnShowMore = findViewById(R.id.btnShowMore)
             gamificationCard = findViewById(R.id.gamificationCard)
         } catch (e: Exception) {
-            // Log any view initialization errors
             e.printStackTrace()
             Toast.makeText(this, "Error initializing views", Toast.LENGTH_SHORT).show()
         }
@@ -74,15 +76,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupUsageStats() {
         try {
-            // Get and display total screen time
-            val screenTime = getScreenTimeToday()
+            val screenTime = getScreenTimeToday(currentRange)
             tvTotalTime.text = screenTime
-
-            // Get app usage stats
-            appUsageStats = getAppUsageStats()
-
-            // Populate usage statistics with only top 2 apps initially
-            populateUsageBarAndDetails(2)
+            appUsageStats = getAppUsageStats(currentRange)
+            populateUsageBarAndDetails()
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, "Error setting up usage stats", Toast.LENGTH_SHORT).show()
@@ -91,34 +88,29 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         try {
-            // Tracking buttons
             findViewById<Button>(R.id.btnDailyTracking)?.setOnClickListener {
-                Toast.makeText(this, "Daily Tracking clicked", Toast.LENGTH_SHORT).show()
+                currentRange = TimeRange.DAILY
+                setupUsageStats()
+                Toast.makeText(this, "Showing Daily Stats", Toast.LENGTH_SHORT).show()
             }
 
             findViewById<Button>(R.id.btnWeeklyTracking)?.setOnClickListener {
-                Toast.makeText(this, "Weekly Tracking clicked", Toast.LENGTH_SHORT).show()
+                currentRange = TimeRange.WEEKLY
+                setupUsageStats()
+                Toast.makeText(this, "Showing Weekly Stats", Toast.LENGTH_SHORT).show()
             }
 
-            // Show More button
             btnShowMore.setOnClickListener {
                 showingAllApps = !showingAllApps
-                if (showingAllApps) {
-                    populateUsageBarAndDetails(5)
-                    btnShowMore.text = "Show Less"
-                } else {
-                    populateUsageBarAndDetails(2)
-                    btnShowMore.text = "Show More"
-                }
+                populateUsageBarAndDetails()
+                btnShowMore.text = if (showingAllApps) "Show Less" else "Show More"
             }
 
-            // Motivational quote
             motivationalQuote.setOnClickListener {
                 val intent = Intent(this, StudentOptionsActivity::class.java)
                 startActivity(intent)
             }
 
-            // Gamification card
             gamificationCard.setOnClickListener {
                 val intent = Intent(this, ChallengesActivity::class.java)
                 startActivity(intent)
@@ -167,16 +159,46 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getScreenTimeToday(): String {
+    private fun getScreenTimeToday(range: TimeRange): String {
         return try {
             val usm = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
             val endTime = System.currentTimeMillis()
-            val startTime = endTime - (1000 * 60 * 60 * 24) // Last 24 hours
+            val startTime = when (range) {
+                TimeRange.DAILY -> {
+                    Calendar.getInstance().apply {
+                        set(Calendar.HOUR_OF_DAY, 0)
+                        set(Calendar.MINUTE, 0)
+                        set(Calendar.SECOND, 0)
+                        set(Calendar.MILLISECOND, 0)
+                    }.timeInMillis
+                }
+                TimeRange.WEEKLY -> endTime - (1000 * 60 * 60 * 24 * 7)
+            }
 
-            val usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime)
-            val totalTime = usageStats.sumOf { it.totalTimeInForeground }
+            val usageEvents = usm.queryEvents(startTime, endTime)
+            var totalTime = 0L
+            val event = UsageEvents.Event()
+            val foregroundAppTimes = mutableMapOf<String, Long>()
+            val lastAppStartTimes = mutableMapOf<String, Long>()
 
-            val hours = (totalTime / (1000 * 60 * 60))
+            while (usageEvents.hasNextEvent()) {
+                usageEvents.getNextEvent(event)
+                val packageName = event.packageName
+
+                if (event.eventType == UsageEvents.Event.MOVE_TO_FOREGROUND) {
+                    lastAppStartTimes[packageName] = event.timeStamp
+                } else if (event.eventType == UsageEvents.Event.MOVE_TO_BACKGROUND) {
+                    val startTimeStamp = lastAppStartTimes[packageName]
+                    if (startTimeStamp != null) {
+                        val usageTime = event.timeStamp - startTimeStamp
+                        foregroundAppTimes[packageName] = foregroundAppTimes.getOrDefault(packageName, 0L) + usageTime
+                    }
+                }
+            }
+
+            totalTime = foregroundAppTimes.values.sum()
+
+            val hours = totalTime / (1000 * 60 * 60)
             val minutes = (totalTime / (1000 * 60)) % 60
             "${hours}h ${minutes}m"
         } catch (e: Exception) {
@@ -185,7 +207,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun populateUsageBarAndDetails(numAppsToShow: Int) {
+
+    private fun getAppUsageStats(range: TimeRange): List<Pair<String, Long>> {
+        return try {
+            val usm = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
+            val endTime = System.currentTimeMillis()
+            val startTime = when (range) {
+                TimeRange.DAILY -> endTime - (1000 * 60 * 60 * 24)
+                TimeRange.WEEKLY -> endTime - (1000 * 60 * 60 * 24 * 7)
+            }
+
+            val usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime)
+            usageStats
+                .filter { it.totalTimeInForeground > 0 }
+                .map { Pair(getAppNameFromPackage(it.packageName), it.totalTimeInForeground) }
+                .groupBy { it.first }
+                .mapValues { entry -> entry.value.sumOf { it.second } }
+                .toList()
+                .sortedByDescending { it.second }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyList()
+        }
+    }
+
+    private fun populateUsageBarAndDetails() {
         try {
             val totalScreenTime = appUsageStats.sumOf { it.second }
 
@@ -193,33 +239,36 @@ class MainActivity : AppCompatActivity() {
             usageBarContainer.removeAllViews()
             usageDetailsContainer.removeAllViews()
 
-            // Split into top N and others
-            val topApps = appUsageStats.take(numAppsToShow)
-            val otherApps = appUsageStats.drop(numAppsToShow)
+            val topApps = appUsageStats.take(5)
+            val otherApps = appUsageStats.drop(5)
 
-            // Calculate total usage time for "Others" category
             val othersUsageTime = otherApps.sumOf { it.second }
 
-            // Combined list with top N apps and "Others" category
-            val displayList = if (othersUsageTime > 0) {
+            val displayBarList = if (othersUsageTime > 0) {
                 topApps + Pair("Others", othersUsageTime)
-            } else {
-                topApps
-            }
+            } else topApps
 
-            // Add progress bars for each app in the display list
-            displayList.forEach { (appName, usageTime) ->
-                // Create progress bar segment
+            displayBarList.forEach { (appName, usageTime) ->
                 val weight = usageTime.toFloat() / totalScreenTime.toFloat()
                 val progressBarSegment = LinearLayout(this).apply {
                     layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, weight)
                     setBackgroundColor(getColorForApp(appName))
                 }
                 usageBarContainer.addView(progressBarSegment)
+            }
 
-                // Create app item layout
+            // Show more or less in the details
+            val displayDetailsList = if (showingAllApps) {
+                appUsageStats
+            } else {
+                topApps
+            }
+
+            displayDetailsList.forEach { (appName, usageTime) ->
+                val weight = usageTime.toFloat() / totalScreenTime.toFloat()
                 createAppUsageItem(appName, usageTime, weight, totalScreenTime)
             }
+
         } catch (e: Exception) {
             e.printStackTrace()
             Toast.makeText(this, "Error populating usage statistics", Toast.LENGTH_SHORT).show()
@@ -227,7 +276,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createAppUsageItem(appName: String, usageTime: Long, weight: Float, totalScreenTime: Long) {
-        // Create the container layout
         val appItemLayout = LinearLayout(this).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -241,26 +289,17 @@ class MainActivity : AppCompatActivity() {
             gravity = android.view.Gravity.CENTER_VERTICAL
         }
 
-        // App icon (colored circle)
         val appIcon = View(this).apply {
-            layoutParams = LinearLayout.LayoutParams(36, 36).apply {
-                marginEnd = 12
-            }
+            layoutParams = LinearLayout.LayoutParams(36, 36).apply { marginEnd = 12 }
             setBackgroundColor(getColorForApp(appName))
         }
         appItemLayout.addView(appIcon)
 
-        // App info container
         val appInfoLayout = LinearLayout(this).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                0,
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                1f
-            )
+            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
             orientation = LinearLayout.VERTICAL
         }
 
-        // App name
         val appNameTextView = TextView(this).apply {
             text = appName
             setTextColor(Color.WHITE)
@@ -268,7 +307,6 @@ class MainActivity : AppCompatActivity() {
         }
         appInfoLayout.addView(appNameTextView)
 
-        // App usage time
         val appTimeTextView = TextView(this).apply {
             text = formatUsageTime(usageTime)
             setTextColor(Color.parseColor("#99AAB5"))
@@ -278,7 +316,6 @@ class MainActivity : AppCompatActivity() {
 
         appItemLayout.addView(appInfoLayout)
 
-        // Usage percentage
         val percentageTextView = TextView(this).apply {
             text = "${(weight * 100).toInt()}%"
             setTextColor(getColorForApp(appName))
@@ -287,25 +324,7 @@ class MainActivity : AppCompatActivity() {
         }
         appItemLayout.addView(percentageTextView)
 
-        // Add the item to the container
         usageDetailsContainer.addView(appItemLayout)
-    }
-
-    private fun getAppUsageStats(): List<Pair<String, Long>> {
-        return try {
-            val usm = getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager
-            val endTime = System.currentTimeMillis()
-            val startTime = endTime - (1000 * 60 * 60 * 24)
-
-            val usageStats = usm.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, startTime, endTime)
-            usageStats
-                .filter { it.totalTimeInForeground > 0 }
-                .map { Pair(getAppNameFromPackage(it.packageName), it.totalTimeInForeground) }
-                .sortedByDescending { it.second }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            emptyList()
-        }
     }
 
     private fun getAppNameFromPackage(packageName: String): String {
@@ -325,18 +344,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun getColorForApp(appName: String): Int {
         return try {
-            // Use consistent colors for common apps
             when (appName) {
-                "Instagram" -> Color.parseColor("#C13584") // Instagram pink/purple
-                "YouTube" -> Color.parseColor("#FF0000") // YouTube red
-                "WhatsApp" -> Color.parseColor("#25D366") // WhatsApp green
-                "Facebook" -> Color.parseColor("#1877F2") // Facebook blue
-                "TikTok" -> Color.parseColor("#000000") // TikTok black
-                "Twitter" -> Color.parseColor("#1DA1F2") // Twitter blue
-                "Snapchat" -> Color.parseColor("#FFFC00") // Snapchat yellow
-                "Chrome" -> Color.parseColor("#4285F4") // Chrome blue
-                "Others" -> Color.parseColor("#888888") // Gray for others
-                else -> getRandomColor() // Random color for other apps
+                "Instagram" -> Color.parseColor("#C13584")
+                "YouTube" -> Color.parseColor("#FF0000")
+                "WhatsApp" -> Color.parseColor("#25D366")
+                "Facebook" -> Color.parseColor("#1877F2")
+                "TikTok" -> Color.parseColor("#000000")
+                "Twitter" -> Color.parseColor("#1DA1F2")
+                "Snapchat" -> Color.parseColor("#FFFC00")
+                "Chrome" -> Color.parseColor("#4285F4")
+                "Others" -> Color.parseColor("#888888")
+                else -> getRandomColor()
             }
         } catch (e: Exception) {
             getRandomColor()
@@ -347,7 +365,7 @@ class MainActivity : AppCompatActivity() {
         return try {
             val random = Random()
             Color.rgb(
-                100 + random.nextInt(156), // Avoid too dark colors
+                100 + random.nextInt(156),
                 100 + random.nextInt(156),
                 100 + random.nextInt(156)
             )
