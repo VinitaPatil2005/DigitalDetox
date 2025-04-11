@@ -50,10 +50,10 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
         setupUsageStats()
 
-        tvScreenTime.text = "Today's Screen Time: 4 hr 30 min"
-        tvInstagramTime.text = "Instagram: 2 hr"
-        tvYouTubeTime.text = "YouTube: 1 hr 30 min"
-        tvWhatsAppTime.text = "WhatsApp: 1 hr"
+        tvScreenTime.text = ""
+        tvInstagramTime.text = ""
+        tvYouTubeTime.text = ""
+        tvWhatsAppTime.text = ""
     }
 
     private fun initializeViews() {
