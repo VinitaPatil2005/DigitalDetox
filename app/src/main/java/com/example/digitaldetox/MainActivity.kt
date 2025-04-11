@@ -16,6 +16,8 @@ import com.example.digitaldetox.ui.ChallengesActivity
 import com.example.digitaldetox.ui.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
+import com.example.digitaldetox.ui.BedtimeDistractionsActivity
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -94,6 +96,10 @@ class MainActivity : AppCompatActivity() {
             // Tracking buttons
             findViewById<Button>(R.id.btnDailyTracking)?.setOnClickListener {
                 Toast.makeText(this, "Daily Tracking clicked", Toast.LENGTH_SHORT).show()
+            }
+            findViewById<TextView>(R.id.tvParentalControl)?.setOnClickListener {
+                val intent = Intent(this@MainActivity, BedtimeDistractionsActivity::class.java)
+                startActivity(intent)
             }
 
             findViewById<Button>(R.id.btnWeeklyTracking)?.setOnClickListener {
@@ -355,4 +361,4 @@ class MainActivity : AppCompatActivity() {
             Color.GRAY
         }
     }
-}
+    }

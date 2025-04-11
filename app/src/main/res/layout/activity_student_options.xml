@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0D0D0D"
+    android:background="#1C2526"
     android:padding="24dp">
 
     <LinearLayout
@@ -14,58 +14,59 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🎓 Student Tools"
-            android:textColor="#BB86FC"
+            android:text="🌳 Student Tools"
+            android:textColor="#F5F5F0"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="24dp" />
 
-        <!-- Stylized Buttons -->
+        <!-- Stylized Buttons with Gradients -->
         <Button
             android:id="@+id/btnDesignTimetable"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="🗓 Design a Timetable"
-            android:textColor="#BB86FC"
-            android:background="@drawable/outline_button"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp" />
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/gradient_button"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
 
         <Button
             android:id="@+id/btnFocusRituals"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="🧘‍♂️ Focus Rituals"
-            android:textColor="#BB86FC"
-            android:background="@drawable/outline_button"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp" />
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/gradient_button"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
 
         <Button
             android:id="@+id/btnPomodoro"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="⏱ Pomodoro Focus"
-            android:textColor="#BB86FC"
-            android:background="@drawable/outline_button"
-            android:layout_marginBottom="12dp"
-            android:padding="12dp" />
-
-
-
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/gradient_button"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp" />
 
         <Button
             android:id="@+id/btnStudyTips"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="💡 Study Tips"
-            android:textColor="#BB86FC"
-            android:background="@drawable/outline_button"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp" />
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/gradient_button"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp" />
     </LinearLayout>
 </ScrollView>

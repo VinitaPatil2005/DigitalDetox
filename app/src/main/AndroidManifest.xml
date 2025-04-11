@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions"/>
-    <!-- Add these permissions -->
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Required Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <queries>
-        <intent>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent>
-    </queries>
-
-
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions"/>
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -28,7 +19,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DigitalDetox"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+
+        <!-- Splash (Launcher) -->
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
@@ -39,24 +32,44 @@
             </intent-filter>
         </activity>
 
-
+        <!-- Main Application Activities -->
+        <activity android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.DigitalDetox" />
         <activity android:name=".ui.OnboardingActivity" />
         <activity android:name=".ui.ProfileOnboardingActivity" />
-        <activity android:name=".ChatbotActivity"/>
-        <activity android:name=".FocusRitualsActivity"/>
-        <activity android:name=".StudentOptionsActivity"/>
-        <activity android:name=".TimetableActivity"/>
+        <activity android:name=".ChatbotActivity" />
+        <activity android:name=".FocusRitualsActivity" />
+        <activity android:name=".StudentOptionsActivity" />
+        <activity android:name=".TimetableActivity" />
         <activity android:name=".SetLimitsActivity" />
-        <activity android:name=".ui.ChallengesActivity"/>
-        <activity android:name=".ui.ProfileActivity"/>
-        <activity android:name=".FocusModeActivity"/>
-        <activity android:name=".ui.FocusModeSettingActivity"/>
+        <activity android:name=".ui.ChallengesActivity" />
+        <activity android:name=".ui.ProfileActivity" />
+        <activity android:name=".FocusModeActivity" />
+        <activity android:name=".ui.FocusModeSettingActivity" />
+        <activity android:name=".ui.PomodoroActivity" />
+        <activity android:name=".ui.BedtimeDistractionsActivity" />
+        <activity android:name=".ui.BedtimeModeActivity" />
+        <activity android:name=".ui.BlockScreenActivity"
+            android:theme="@style/Theme.DigitalDetox.Transparent"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" />
 
+        <!-- Alarm Receivers -->
+        <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".receiver.StartFocusReceiver" />
+        <receiver android:name=".receiver.StopFocusReceiver" />
 
+        <!-- Accessibility Services -->
+
+        <!-- AppBlockerService: declared only once with exported="true" -->
         <service
             android:name=".services.AppBlockerService"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
@@ -65,17 +78,28 @@
                 android:resource="@xml/accessibility_service_config" />
         </service>
 
+        <!-- FocusModeAccessibilityService -->
+        <service
+            android:name=".service.FocusModeAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/focus_mode_service" />
+        </service>
+
+        <!-- Persistent Service -->
         <service
             android:name=".services.KeepAliveService"
             android:exported="false" />
-
-
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.DigitalDetox" />
-
+            android:name=".ui.SettingsChangeDialogActivity"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:excludeFromRecents="true"
+            android:launchMode="singleInstance"/>
 
     </application>
 
