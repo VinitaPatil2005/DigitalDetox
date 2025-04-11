@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "685848791069",
+    "project_id": "digital-detox-40e4d",
+    "storage_bucket": "digital-detox-40e4d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685848791069:android:8d818aa408493fbdbd1ef4",
+        "android_client_info": {
+          "package_name": "com.example.digitaldetox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvOg3iLxMVeTadDNVaoe2SS7V5Tmy3Iss"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

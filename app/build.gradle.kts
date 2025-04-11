@@ -4,6 +4,8 @@ plugins {
     // Removed: alias(libs.plugins.kotlin.compose)
 }
 
+apply(plugin = "com.google.gms.google-services") // Apply Firebase plugin correctly
+
 android {
     namespace = "com.example.digitaldetox"
     compileSdk = 35
@@ -27,21 +29,33 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
 
     buildFeatures {
-        // Turn off Compose
-        compose = false
+        compose = false // Make sure Compose is turned off if not used
     }
 }
 
 dependencies {
+    // Firebase Realtime Database
+    implementation("com.google.firebase:firebase-database:20.3.0")
+
+    // Firebase Core Analytics (optional but recommended)
+    implementation("com.google.firebase:firebase-analytics:21.3.0")
+
+    // Firebase Authentication
+    implementation("com.google.firebase:firebase-auth:22.1.2")
+
+
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -51,17 +65,10 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.okhttp)
     implementation(libs.generativeai)
-    implementation ("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    implementation ("com.airbnb.android:lottie:6.1.0")
-    implementation ("androidx.cardview:cardview:1.0.0")
 
-
-
+    implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
 }

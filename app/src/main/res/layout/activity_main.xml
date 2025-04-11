@@ -22,7 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="📱 Screen Time"
-                android:textColor="@color/white"
+                android:textColor="#BB86FC"
                 android:textSize="26sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
@@ -39,6 +39,17 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="28dp" />
 
+            <!-- Total Screen Time from second layout -->
+            <TextView
+                android:id="@+id/tvScreenTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today's Screen Time: 0 hr 0 min"
+                android:textColor="#BB86FC"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp" />
+
             <!-- Tracking Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,11 +61,10 @@
 
                 <Button
                     android:id="@+id/btnDailyTracking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
                     android:layout_weight="1"
                     android:text="Daily Tracking"
-                    android:fontFamily="@font/titilliumweb_regular"
                     android:textStyle="bold"
                     android:backgroundTint="#1F1B24"
                     android:textColor="#BB86FC"
@@ -62,11 +72,10 @@
 
                 <Button
                     android:id="@+id/btnWeeklyTracking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
                     android:layout_weight="1"
                     android:text="Weekly Tracking"
-                    android:fontFamily="@font/titilliumweb_regular"
                     android:textStyle="bold"
                     android:backgroundTint="#1F1B24"
                     android:textColor="#BB86FC"
@@ -78,7 +87,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="App Usage Breakdown"
-                android:fontFamily="@font/titilliumweb_light"
                 android:textSize="16sp"
                 android:textColor="#99AAB5"
                 android:layout_marginBottom="8dp" />
@@ -107,7 +115,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Most Used Apps"
-                    android:fontFamily="@font/titilliumweb_regular"
                     android:textColor="#FFFFFF"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -117,12 +124,39 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Show More"
-                    android:fontFamily="@font/titilliumweb_regular"
                     android:textColor="#BB86FC"
                     android:background="?android:attr/selectableItemBackground"
                     android:textAllCaps="false" />
             </LinearLayout>
 
+            <!-- Most Used Apps - Specific Apps from second layout -->
+            <TextView
+                android:id="@+id/tvInstagramTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Instagram: 2 hr"
+                android:textColor="#DDDDDD"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvYouTubeTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="YouTube: 1 hr 30 min"
+                android:textColor="#DDDDDD"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/tvWhatsAppTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WhatsApp: 1 hr"
+                android:textColor="#DDDDDD"
+                android:textSize="14sp"
+                android:layout_marginBottom="12dp" />
 
             <!-- App Usage Details Container -->
             <LinearLayout
@@ -139,7 +173,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Are you a student?"
-                android:fontFamily="@font/titilliumweb_light"
                 android:textColor="#CCCCCC"
                 android:textSize="16sp"
                 android:textStyle="italic"
@@ -153,7 +186,6 @@
                 android:layout_height="wrap_content"
                 android:text="'The secret of getting ahead is getting started.'"
                 android:textColor="#00FFAA"
-                android:fontFamily="@font/titilliumweb_regular"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:gravity="center"
@@ -193,7 +225,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Daily Challenge"
-                        android:fontFamily="@font/titilliumweb_bold"
                         android:textColor="#FFFFFF"
                         android:textStyle="bold"
                         android:textSize="16sp" />
@@ -207,6 +238,22 @@
                         android:layout_marginTop="2dp" />
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- Parental Control -->
+            <TextView
+                android:id="@+id/tvParentalControl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="👪 Parental Control"
+                android:textColor="#FF7D7D"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:background="@drawable/quote_background"
+                android:padding="12dp"
+                android:layout_marginTop="16dp"
+                android:clickable="true"
+                android:focusable="true" />
 
             <!-- Spacer -->
             <Space
