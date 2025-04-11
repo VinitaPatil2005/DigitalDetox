@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    android:background="#1C2526"
+    android:background="@color/black"
     android:padding="24dp">
 
     <!-- Title -->
@@ -13,12 +13,14 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="🌿 Focus"
+        android:text="Focus"
+        android:fontFamily="@font/titilliumweb_regular"
         android:textColor="#F5F5F0"
         android:textStyle="bold"
         android:textSize="22sp"
         android:gravity="center"
         android:paddingTop="32dp"
+        android:layout_marginTop="90dp"
         android:paddingBottom="16dp"
         android:lineSpacingExtra="4dp" />
 
@@ -29,6 +31,7 @@
         android:layout_height="wrap_content"
         android:text="Pause distracting apps and hide notifications to focus."
         android:textColor="#CCCCCC"
+        android:fontFamily="@font/titilliumweb_regular"
         android:textSize="16sp"
         android:gravity="center"
         android:lineSpacingExtra="6dp"
@@ -41,7 +44,6 @@
         android:layout_height="200dp"
         android:src="@drawable/ffocus"
         android:scaleType="fitCenter"
-        android:background="@drawable/rounded_card"
         android:layout_marginBottom="32dp" />
 
     <!-- Start Button -->

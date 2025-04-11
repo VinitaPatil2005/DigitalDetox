@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.generativeai)
 
     implementation("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
+    implementation(libs.firebase.auth.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
