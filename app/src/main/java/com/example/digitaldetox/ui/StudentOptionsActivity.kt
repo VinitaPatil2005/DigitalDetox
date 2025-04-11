@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.digitaldetox.ui.PomodoroActivity
+import com.example.digitaldetox.ui.TimetableActivity
 
 class StudentOptionsActivity : AppCompatActivity() {
 

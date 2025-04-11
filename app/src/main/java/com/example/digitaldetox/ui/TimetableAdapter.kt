@@ -14,7 +14,7 @@ class TimetableAdapter(
         val dayTimeText: TextView = itemView.findViewById(R.id.textDayTime)
         val subjectText: TextView = itemView.findViewById(R.id.textSubject)
         val typeText: TextView = itemView.findViewById(R.id.textType)
-        val stepsTask: CheckBox = itemView.findViewById(R.id.checkSteps)
+//        val stepsTask: CheckBox = itemView.findViewById(R.id.checkSteps)
         val startButton: Button = itemView.findViewById(R.id.btnStartTimer)
         val timerText: TextView = itemView.findViewById(R.id.textTimer)
     }
@@ -32,12 +32,12 @@ class TimetableAdapter(
         holder.dayTimeText.text = "${entry.day} • ${entry.time}"
         holder.subjectText.text = entry.subject
         holder.typeText.text = "Type: ${entry.type.capitalize()}"
-        holder.stepsTask.isChecked = entry.stepsCompleted
+//        holder.stepsTask.isChecked = entry.stepsCompleted
 
-        holder.stepsTask.setOnCheckedChangeListener { _, isChecked ->
-            entry.stepsCompleted = isChecked
-            notifyItemChanged(position)
-        }
+//        holder.stepsTask.setOnCheckedChangeListener { _, isChecked ->
+//            entry.stepsCompleted = isChecked
+//            notifyItemChanged(position)
+//        }
 
 
         holder.startButton.setOnClickListener {

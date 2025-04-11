@@ -7,6 +7,8 @@
     <!-- Add these permissions -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH" />
 
     <queries>
         <intent>
@@ -17,8 +19,9 @@
 
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions"/>
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+
+
 
     <application
         android:allowBackup="true"
@@ -46,7 +49,7 @@
         <activity android:name=".ChatbotActivity"/>
         <activity android:name=".FocusRitualsActivity"/>
         <activity android:name=".StudentOptionsActivity"/>
-        <activity android:name=".TimetableActivity"/>
+        <activity android:name=".ui.TimetableActivity"/>
         <activity android:name=".ui.SetLimitsActivity" />
         <activity android:name=".ui.ChallengesActivity"/>
         <activity android:name=".ui.ProfileActivity"/>
@@ -72,6 +75,12 @@
 
             android:name=".services.KeepAliveService"
             android:exported="false" />
+
+        <service
+            android:name=".services.StepCounterService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="health" />
 
 
         <activity

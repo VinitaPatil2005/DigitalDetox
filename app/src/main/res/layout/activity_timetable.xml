@@ -114,6 +114,17 @@
         android:layout_marginBottom="14dp"
         android:background="#BB86FC" />
 
+    <!-- Automatic Step Goal Display (Read-only) -->
+    <TextView
+        android:id="@+id/textStepGoalDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="👟 Steps will be calculated automatically"
+        android:fontFamily="@font/titilliumweb_regular"
+        android:textColor="#BB86FC"
+        android:textSize="16dp"
+        android:layout_marginBottom="14dp" />
+
     <!-- Button -->
     <Button
         android:id="@+id/btnAddToTimetable"
