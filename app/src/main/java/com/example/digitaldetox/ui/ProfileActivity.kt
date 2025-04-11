@@ -11,6 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.digitaldetox.R
+import com.example.digitaldetox.YogaDetailActivity
+import com.example.digitaldetox.DanceDetailActivity
+
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -25,6 +28,23 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+
+        val yogaCard = findViewById<LinearLayout>(R.id.yogacard)
+        val danceCard = findViewById<LinearLayout>(R.id.dance)
+
+        yogaCard.setOnClickListener {
+            val intent = Intent(this, YogaDetailActivity::class.java)
+            intent.putExtra("category", "Yoga")
+            startActivity(intent)
+        }
+
+        danceCard.setOnClickListener {
+            val intent = Intent(this, DanceDetailActivity::class.java)
+            intent.putExtra("category", "Dance")
+            startActivity(intent)
+        }
+
 
         // TextViews and Section
         val tvUserName = findViewById<TextView>(R.id.tvUserName)

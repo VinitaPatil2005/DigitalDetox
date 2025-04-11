@@ -21,7 +21,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var tvScreenTime: TextView
     private lateinit var tvTotalTime: TextView
     private lateinit var tvInstagramTime: TextView
     private lateinit var tvYouTubeTime: TextView
@@ -50,19 +49,11 @@ class MainActivity : AppCompatActivity() {
         setupBottomNavigation()
         setupUsageStats()
 
-        tvScreenTime.text = "Today's Screen Time: 4 hr 30 min"
-        tvInstagramTime.text = "Instagram: 2 hr"
-        tvYouTubeTime.text = "YouTube: 1 hr 30 min"
-        tvWhatsAppTime.text = "WhatsApp: 1 hr"
     }
 
     private fun initializeViews() {
         try {
-            tvScreenTime = findViewById(R.id.tvScreenTime)
             tvTotalTime = findViewById(R.id.tvTotalTime)
-            tvInstagramTime = findViewById(R.id.tvInstagramTime)
-            tvYouTubeTime = findViewById(R.id.tvYouTubeTime)
-            tvWhatsAppTime = findViewById(R.id.tvWhatsAppTime)
             motivationalQuote = findViewById(R.id.tvMotivationalQuote)
             usageBarContainer = findViewById(R.id.usageBarContainer)
             usageDetailsContainer = findViewById(R.id.usageDetailsContainer)

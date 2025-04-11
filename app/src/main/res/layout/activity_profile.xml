@@ -129,10 +129,14 @@
 
                 <!-- Yoga Card -->
                 <LinearLayout
+                    android:id="@+id/yogacard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="12dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:background="#FF6F61"
                     android:layout_marginBottom="8dp"
                     android:gravity="center_vertical"
@@ -175,8 +179,12 @@
 
                 <!-- Dance Card -->
                 <LinearLayout
+                    android:id="@+id/dance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:orientation="horizontal"
                     android:padding="12dp"
                     android:background="#42A5F5"
@@ -221,8 +229,12 @@
 
                 <!-- Gym Card -->
                 <LinearLayout
+                    android:id="@+id/gym"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:orientation="horizontal"
                     android:padding="12dp"
                     android:background="#66BB6A"
@@ -267,9 +279,13 @@
 
                 <!-- Coaching Card -->
                 <LinearLayout
+                    android:id="@+id/coaching"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:padding="12dp"
                     android:background="#AB47BC"
                     android:gravity="center_vertical"
