@@ -52,6 +52,8 @@
         <activity android:name=".ui.ProfileActivity"/>
         <activity android:name=".FocusModeActivity"/>
         <activity android:name=".ui.FocusModeSettingActivity"/>
+        <activity android:name=".ui.ParentalControlActivity" />
+
 
 
         <service
