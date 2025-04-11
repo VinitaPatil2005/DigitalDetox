@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="24dp"
+    card_view:cardCornerRadius="24dp"
+    card_view:cardElevation="12dp"
+    android:background="@android:color/transparent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center"
+        android:background="#FFFFFF">
+
+        <ImageView
+            android:id="@+id/imgCoin"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/dollar"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/tvCongrats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Congratulations!"
+            android:textSize="22sp"
+            android:textColor="#4CAF50"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tvCoinsEarned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You earned 50 coins"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:layout_marginTop="8dp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tvCheckProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Check your profile for discounts!"
+            android:textSize="16sp"
+            android:textColor="#777777"
+            android:layout_marginTop="12dp"
+            android:gravity="center" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

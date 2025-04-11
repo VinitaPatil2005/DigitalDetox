@@ -1,9 +1,17 @@
 package com.example.digitaldetox.ui
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +23,7 @@ class ChallengeAdapter(
 ) : RecyclerView.Adapter<ChallengeAdapter.ChallengeViewHolder>() {
 
     inner class ChallengeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val btnStart: Button = view.findViewById(R.id.btnStartChallenge)
         val tvTitle: TextView = view.findViewById(R.id.tvChallengeTitle)
         val tvCoins: TextView = view.findViewById(R.id.tvChallengeCoins)
         val tvStatus: TextView = view.findViewById(R.id.tvChallengeStatus)
@@ -38,10 +47,35 @@ class ChallengeAdapter(
             else -> "Not Started"
         }
 
-        val percent = (100 * (challenge.totalDurationMillis - challenge.timeRemainingMillis) / challenge.totalDurationMillis).toInt()
-        holder.progressBar.progress = percent
+        holder.btnStart.isEnabled = !challenge.started && !challenge.completed
 
-        // Start countdown if challenge is started
+        // Handle Start Button
+        holder.btnStart.setOnClickListener {
+            challenge.started = true
+            holder.btnStart.isEnabled = false
+            holder.timer?.cancel()
+
+            holder.timer = object : CountDownTimer(challenge.timeRemainingMillis, 1000) {
+                override fun onTick(millisUntilFinished: Long) {
+                    challenge.timeRemainingMillis = millisUntilFinished
+                    val progress = (100 * (challenge.totalDurationMillis - millisUntilFinished) / challenge.totalDurationMillis).toInt()
+                    holder.progressBar.progress = progress
+                    holder.tvStatus.text = "In Progress: ${millisUntilFinished / 1000}s left"
+                }
+
+                override fun onFinish() {
+                    challenge.completed = true
+                    holder.tvStatus.text = "Completed"
+                    holder.progressBar.progress = 100
+                    showRewardDialog(holder.itemView.context, challenge.coinReward)
+                }
+            }.start()
+        }
+
+        val progressPercent = (100 * (challenge.totalDurationMillis - challenge.timeRemainingMillis) / challenge.totalDurationMillis).toInt()
+        holder.progressBar.progress = progressPercent
+
+        // Resume timer if already started but not finished
         if (challenge.started && !challenge.completed) {
             holder.timer?.cancel()
             holder.timer = object : CountDownTimer(challenge.timeRemainingMillis, 1000) {
@@ -56,6 +90,7 @@ class ChallengeAdapter(
                     challenge.completed = true
                     holder.tvStatus.text = "Completed"
                     holder.progressBar.progress = 100
+                    showRewardDialog(holder.itemView.context, challenge.coinReward)
                 }
             }.start()
         }
@@ -66,4 +101,22 @@ class ChallengeAdapter(
     }
 
     override fun getItemCount(): Int = challenges.size
+
+    fun showRewardDialog(context: Context, coins: Int) {
+        val dialog = Dialog(context)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_reward)
+        dialog.setCancelable(true)
+
+        val imgCoin = dialog.findViewById<ImageView>(R.id.imgCoin)
+        val tvCongrats = dialog.findViewById<TextView>(R.id.tvCongrats)
+        val tvCoinsEarned = dialog.findViewById<TextView>(R.id.tvCoinsEarned)
+        val tvCheckProfile = dialog.findViewById<TextView>(R.id.tvCheckProfile)
+
+        tvCoinsEarned.text = "You earned $coins coins"
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+    }
+
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/black"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Select Your Role"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:fontFamily="@font/titilliumweb_bold"
+        android:layout_marginBottom="32dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RadioGroup
+        android:id="@+id/roleGroup"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbParent"
+            android:text="I am a Parent"
+            android:textColor="@color/white"
+            android:fontFamily="@font/titilliumweb_regular"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/rbChild"
+            android:text="I am a Child"
+            android:textColor="@color/white"
+            android:fontFamily="@font/titilliumweb_regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:text="Next"
+        android:fontFamily="@font/titilliumweb_regular"
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/purple_700"
+        android:textColor="#FFFFFF" />
+</LinearLayout>
