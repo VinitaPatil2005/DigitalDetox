@@ -52,10 +52,15 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.generativeai)
     implementation ("androidx.localbroadcastmanager:localbroadcastmanager:1.1.0")
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+    implementation ("com.airbnb.android:lottie:6.1.0")
+    implementation ("androidx.cardview:cardview:1.0.0")
 
 
 
-testImplementation(libs.junit)
+
+    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 

@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#F2F2F2"
+    android:padding="24dp">
+
+    <!-- Main Card Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@drawable/bg_card"
+        android:gravity="center"
+        android:elevation="6dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvRedeemStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Redemption Status"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:gravity="center" />
+
+        <!-- Line Separator -->
+        <View
+            android:layout_width="60dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:background="#3F51B5" />
+
+        <!-- Redeem Code -->
+        <TextView
+            android:id="@+id/tvRedeemCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XXXX-XXXX"
+            android:textSize="18sp"
+            android:textColor="#3F51B5"
+            android:textStyle="italic"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</LinearLayout>
