@@ -10,7 +10,6 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.digitaldetox.R
-import com.google.gson.Gson
 
 class DanceDetailActivity : AppCompatActivity() {
 
@@ -34,8 +33,21 @@ class DanceDetailActivity : AppCompatActivity() {
         val btnCopy = dialogView.findViewById<Button>(R.id.btnCopyCode)
 
         btnRedeem.setOnClickListener {
-            codeText.text = "DANCE15OFF"
-            codeLayout.visibility = View.VISIBLE
+            val redeemCost = 50 // Specify the cost of redeeming the coupon
+            val prefs = getSharedPreferences("digital_detox_prefs", Context.MODE_PRIVATE)
+            val currentCoins = prefs.getInt("user_coins", 0)
+
+            if (currentCoins >= redeemCost) {
+                // Deduct coins
+                prefs.edit().putInt("user_coins", currentCoins - redeemCost).apply()
+                Toast.makeText(this, "$redeemCost coins deducted!", Toast.LENGTH_SHORT).show()
+
+                // Show the code
+                codeText.text = "DANCE15OFF"
+                codeLayout.visibility = View.VISIBLE
+            } else {
+                Toast.makeText(this, "Not enough coins to redeem!", Toast.LENGTH_SHORT).show()
+            }
         }
 
         btnCopy.setOnClickListener {

@@ -56,6 +56,10 @@
         <activity android:name=".FocusModeActivity"/>
         <activity android:name=".ui.FocusModeSettingActivity"/>
         <activity android:name=".ui.ParentalControlActivity" />
+        <activity android:name=".ui.BedtimeDistractionsActivity"/>
+        <activity android:name=".ui.BedtimeModeActivity"/>
+        <activity android:name=".ui.DanceDetailActivity"/>
+        <activity android:name=".ui.YogaDetailActivity"/>
 
 
 

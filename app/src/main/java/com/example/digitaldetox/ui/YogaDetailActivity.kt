@@ -3,6 +3,7 @@ package com.example.digitaldetox.ui
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,8 +32,25 @@ class YogaDetailActivity : AppCompatActivity() {
         val btnCopy = dialogView.findViewById<Button>(R.id.btnCopyCode)
 
         btnRedeem.setOnClickListener {
-            codeText.text = "GYM15OFF"
-            codeLayout.visibility = View.VISIBLE
+            val redeemCost = 50 // Specify the cost of redeeming the coupon
+            val prefs = getSharedPreferences("digital_detox_prefs", Context.MODE_PRIVATE)
+            val currentCoins = prefs.getInt("user_coins", 0)
+
+            if (currentCoins >= redeemCost) {
+                // Deduct coins
+                prefs.edit().putInt("user_coins", currentCoins - redeemCost).apply()
+                Toast.makeText(this, "$redeemCost coins deducted!", Toast.LENGTH_SHORT).show()
+
+                // Notify other activities about coin update
+                val intent = Intent("COINS_UPDATED")
+                sendBroadcast(intent)
+
+                // Show the code
+                codeText.text = "GYM15OFF"
+                codeLayout.visibility = View.VISIBLE
+            } else {
+                Toast.makeText(this, "Not enough coins to redeem!", Toast.LENGTH_SHORT).show()
+            }
         }
 
         btnCopy.setOnClickListener {

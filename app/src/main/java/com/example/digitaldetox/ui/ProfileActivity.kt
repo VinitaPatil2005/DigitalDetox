@@ -1,6 +1,9 @@
 package com.example.digitaldetox.ui
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -19,7 +22,8 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var llRewardsSection: LinearLayout
     private lateinit var tvCoins: TextView
     private var rewardsVisible = false
-    private var totalCoins = 120 // Example
+    private var totalCoins = 120 // Example initial coins
+    private lateinit var coinUpdateReceiver: BroadcastReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +76,28 @@ class ProfileActivity : AppCompatActivity() {
                 tvViewCoupons.text = "View My Coupons ▶"
             }
         }
+
+        // Register BroadcastReceiver for coin updates
+        coinUpdateReceiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) {
+                // Refresh the coin display
+                updateCoinDisplay()
+            }
+        }
+        val intentFilter = IntentFilter("COINS_UPDATED")
+        registerReceiver(coinUpdateReceiver, intentFilter)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Ensure coins are updated when the activity is resumed
+        updateCoinDisplay()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Unregister the BroadcastReceiver to prevent memory leaks
+        unregisterReceiver(coinUpdateReceiver)
     }
 
     private fun toggleRewardsVisibility() {
@@ -81,6 +107,8 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun updateCoinDisplay() {
+        val prefs = getSharedPreferences("digital_detox_prefs", Context.MODE_PRIVATE)
+        totalCoins = prefs.getInt("user_coins", 0)
         tvCoins.text = "Total Coins: $totalCoins"
     }
 
@@ -112,7 +140,6 @@ class ProfileActivity : AppCompatActivity() {
             code.text = "Code: ${coupon.code}"
             validity.text = "Valid: ${dateFormat.format(Date(coupon.issuedDate))} - ${dateFormat.format(Date(coupon.expiryDate))}"
 
-            // 👉 Add spacing between coupons
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -124,5 +151,4 @@ class ProfileActivity : AppCompatActivity() {
             container.addView(view)
         }
     }
-
 }
