@@ -19,16 +19,16 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.digitaldetox.R
-import com.example.digitaldetox.services.AppBlockerService
 import com.example.digitaldetox.services.KeepAliveService
+import com.example.digitaldetox.services.AppBlockerService  // Ensure this is imported
 
 class FocusModeSettingActivity : AppCompatActivity() {
     private val TAG = "FocusModeSettings"
 
     private lateinit var lvAppList: ListView
-    private lateinit var btnToggle: Button // Renamed from btnTurnOn to btnToggle
+    private lateinit var btnToggle: Button  // Renamed from btnTurnOn to btnToggle
 
-    private val selectedApps = mutableSetOf<String>() // Store selected package names
+    private val selectedApps = mutableSetOf<String>()  // Store selected package names
     private var isFocusModeActive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class FocusModeSettingActivity : AppCompatActivity() {
         setContentView(R.layout.focus_mode_settings)
 
         lvAppList = findViewById(R.id.lvAppList)
-        btnToggle = findViewById(R.id.btnTurnOn) // ID can remain the same in layout
+        btnToggle = findViewById(R.id.btnTurnOn)  // ID remains the same as in layout
 
         // Check if focus mode is currently active
         val prefs = getSharedPreferences("app_blocker_prefs", Context.MODE_PRIVATE)
@@ -81,15 +81,15 @@ class FocusModeSettingActivity : AppCompatActivity() {
                 turnOffFocusMode()
             } else {
                 // Turn on focus mode
-                if (!isAccessibilityServiceEnabled(this, AppBlockerService::class.java)) {
-                    Toast.makeText(this, "Please enable the Accessibility Service first", Toast.LENGTH_LONG).show()
+                if (!isAccessibilityServiceEnabled(this@FocusModeSettingActivity, AppBlockerService::class.java)) {
+                    Toast.makeText(this@FocusModeSettingActivity, "Please enable the Accessibility Service first", Toast.LENGTH_LONG).show()
                     showAccessibilityInstructions()
                     return@setOnClickListener
                 }
 
-                if (!Settings.canDrawOverlays(this)) {
+                if (!Settings.canDrawOverlays(this@FocusModeSettingActivity)) {
                     // Request overlay permission
-                    AlertDialog.Builder(this)
+                    AlertDialog.Builder(this@FocusModeSettingActivity)
                         .setTitle("Permission Required")
                         .setMessage("This app needs permission to display over other apps.")
                         .setPositiveButton("Grant Permission") { _, _ ->
@@ -119,7 +119,7 @@ class FocusModeSettingActivity : AppCompatActivity() {
         }
 
         // Start the KeepAlive service first
-        val serviceIntent = Intent(this, KeepAliveService::class.java)
+        val serviceIntent = Intent(this@FocusModeSettingActivity, KeepAliveService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             startForegroundService(serviceIntent)
         } else {
@@ -132,7 +132,7 @@ class FocusModeSettingActivity : AppCompatActivity() {
         sendBroadcast(updateIntent)
         Log.d(TAG, "Broadcast sent: com.example.digitaldetox.UPDATE_BLOCKED_APPS")
 
-        Toast.makeText(this, "Focus Mode Activated!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@FocusModeSettingActivity, "Focus Mode Activated!", Toast.LENGTH_SHORT).show()
 
         // Update state and button
         isFocusModeActive = true
@@ -150,7 +150,7 @@ class FocusModeSettingActivity : AppCompatActivity() {
         }
 
         // Stop the KeepAlive service
-        val serviceIntent = Intent(this, KeepAliveService::class.java)
+        val serviceIntent = Intent(this@FocusModeSettingActivity, KeepAliveService::class.java)
         stopService(serviceIntent)
 
         // Notify the service to stop blocking
@@ -158,7 +158,7 @@ class FocusModeSettingActivity : AppCompatActivity() {
         updateIntent.setPackage(packageName)
         sendBroadcast(updateIntent)
 
-        Toast.makeText(this, "Focus Mode Deactivated", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@FocusModeSettingActivity, "Focus Mode Deactivated", Toast.LENGTH_SHORT).show()
 
         // Update state and button
         isFocusModeActive = false
@@ -168,7 +168,7 @@ class FocusModeSettingActivity : AppCompatActivity() {
     private fun updateButtonText() {
         if (isFocusModeActive) {
             btnToggle.text = "Turn Off Focus Mode"
-            btnToggle.setBackgroundResource(R.drawable.rounded_button_red) // You'll need to create this
+            btnToggle.setBackgroundResource(R.drawable.rounded_button_red) // Ensure you have this drawable
         } else {
             btnToggle.text = "Turn On Focus Mode"
             if (selectedApps.isNotEmpty()) {
@@ -195,7 +195,7 @@ class FocusModeSettingActivity : AppCompatActivity() {
         return enabled
     }
 
-    // Helper method to normalize app icons to consistent size
+    // Helper method to normalize app icons to a consistent size
     private fun normalizeAppIcon(context: Context, drawable: Drawable): Drawable {
         val size = context.resources.getDimensionPixelSize(R.dimen.app_icon_size)
 
@@ -215,7 +215,7 @@ class FocusModeSettingActivity : AppCompatActivity() {
     private fun loadInstalledApps() {
         val pm = packageManager
         val apps = pm.getInstalledApplications(PackageManager.GET_META_DATA)
-            .filter { pm.getLaunchIntentForPackage(it.packageName) != null } // only launchable apps
+            .filter { pm.getLaunchIntentForPackage(it.packageName) != null } // Only launchable apps
             .map {
                 val icon = normalizeAppIcon(this, it.loadIcon(pm))
                 AppInfo(
@@ -293,7 +293,7 @@ class FocusModeSettingActivity : AppCompatActivity() {
     }
 
     private fun updateButtonState() {
-        // Enable the button if focus mode is active or if we have apps selected
+        // Enable the button if focus mode is active or if apps are selected
         btnToggle.isEnabled = isFocusModeActive || selectedApps.isNotEmpty()
         updateButtonText()
     }
