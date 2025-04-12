@@ -11,12 +11,14 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/titilliumweb_bold"
         android:text="Bedtime mode"
-        android:textColor="#D8B4F8"
+        android:textColor="@color/white"
         android:textSize="26sp"
-        android:textStyle="bold|italic"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Description -->
     <TextView
@@ -24,7 +26,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Get ready for bed by changing the screen to greyscale and muting calls, alerts, and other sounds."
-        android:textColor="#CCCCCC"
+        android:textColor="@color/white"
+        android:fontFamily="@font/titilliumweb_regular"
         android:textSize="16sp"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@id/title"
@@ -38,7 +41,8 @@
         android:layout_height="48dp"
         android:text="Turn on now"
         android:backgroundTint="#9C4DCC"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/white"
+        android:fontFamily="@font/titilliumweb_regular"
         android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@id/description"
         app:layout_constraintStart_toStartOf="parent"

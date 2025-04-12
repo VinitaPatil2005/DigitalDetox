@@ -10,15 +10,16 @@ class SettingsChangeDialogActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Show a dialog immediately with no layout.
         AlertDialog.Builder(this)
-            .setTitle("Change Settings")
-            .setMessage("Your scheduled Focus Mode has started. Please review and update your settings to ensure all apps get blocked. Tap OK to open Accessibility Settings.")
+            .setTitle("Focus Mode Started")
+            .setMessage("Your scheduled Focus Mode has started. Tap OK to review settings.")
             .setCancelable(false)
-            .setPositiveButton("Open Settings") { _, _ ->
-                // Launch the system's accessibility settings (or any other settings)
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-                finish()
+            .setPositiveButton("OK") { _, _ ->
+                // Open settings without finishing this activity immediately
+                val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                startActivity(intent)
+                // Optional: delay finish slightly to avoid auto return
+                window.decorView.postDelayed({ finish() }, 500)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
@@ -27,5 +28,3 @@ class SettingsChangeDialogActivity : AppCompatActivity() {
             .show()
     }
 }
-
-

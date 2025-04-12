@@ -13,7 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.digitaldetox.R
 import java.util.*
 import android.widget.Button
-import com.example.digitaldetox.receiver.StartFocusReceiver
+import com.example.digitaldetox.util.FocusModeManager
+
 class BedtimeModeActivity : AppCompatActivity() {
 
     private lateinit var startTimeText: TextView
@@ -24,25 +25,48 @@ class BedtimeModeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.bedtime_mode) // make sure this layout exists
+        setContentView(R.layout.bedtime_mode)
 
         startTimeText = findViewById(R.id.start_time)
         endTimeText = findViewById(R.id.end_time)
 
         startTimeText.setOnClickListener {
-            checkExactAlarmPermission {
-                pickTime(isStart = true)
-            }
+            checkPermissionAndPickTime(isStart = true)
         }
-        val turnOnNowButton = findViewById<Button>(R.id.turn_on_now)
-        turnOnNowButton.setOnClickListener {
-            // Show same settings change dialog as in schedule
-            showSettingsDialog()
-        }
-
 
         endTimeText.setOnClickListener {
             pickTime(isStart = false)
+        }
+
+        val turnOnNowButton = findViewById<Button>(R.id.turn_on_now)
+        turnOnNowButton.setOnClickListener {
+            FocusModeManager.setFocusModeEnabled(this, true)
+            val intent = Intent(this, SettingsChangeDialogActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+
+            Toast.makeText(this, "Bedtime Mode Started Now", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun checkPermissionAndPickTime(isStart: Boolean) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            if (alarmManager.canScheduleExactAlarms()) {
+                pickTime(isStart)
+            } else {
+                Toast.makeText(
+                    this,
+                    "Exact alarm permission not granted. Please allow it from settings.",
+                    Toast.LENGTH_LONG
+                ).show()
+                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
+                    data = Uri.parse("package:$packageName")
+                }
+                startActivity(intent)
+            }
+        } else {
+            pickTime(isStart)
         }
     }
 
@@ -51,17 +75,18 @@ class BedtimeModeActivity : AppCompatActivity() {
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        TimePickerDialog(this, { _, selectedHour, selectedMinute ->
+        TimePickerDialog(this, { _, hourOfDay, minuteOfHour ->
             val selectedCalendar = Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, selectedHour)
-                set(Calendar.MINUTE, selectedMinute)
+                set(Calendar.HOUR_OF_DAY, hourOfDay)
+                set(Calendar.MINUTE, minuteOfHour)
                 set(Calendar.SECOND, 0)
                 if (timeInMillis < System.currentTimeMillis()) {
                     add(Calendar.DAY_OF_YEAR, 1)
                 }
             }
 
-            val formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+            val formattedTime = String.format("%02d:%02d", hourOfDay, minuteOfHour)
+
             if (isStart) {
                 startTimeText.text = "Start Time: $formattedTime"
                 startTimeMillis = selectedCalendar.timeInMillis
@@ -75,24 +100,6 @@ class BedtimeModeActivity : AppCompatActivity() {
                 Toast.makeText(this, "Bedtime Mode Scheduled!", Toast.LENGTH_SHORT).show()
             }
         }, hour, minute, false).show()
-    }
-    private fun showSettingsDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Allow permissions")
-            .setMessage("Please allow required settings like grayscale and accessibility to enable Bedtime Mode.")
-            .setPositiveButton("Go to settings") { dialog, _ ->
-                // Navigate to accessibility settings
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-                dialog.dismiss()
-
-                // Optional: Also start bedtime logic immediately
-                val intent = Intent(this, StartFocusReceiver::class.java)
-                sendBroadcast(intent)
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
     }
 
     private fun scheduleBedtimeMode(startMillis: Long, endMillis: Long) {
@@ -111,22 +118,5 @@ class BedtimeModeActivity : AppCompatActivity() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, endMillis, endPendingIntent)
-    }
-
-    private fun checkExactAlarmPermission(onGranted: () -> Unit) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            if (alarmManager.canScheduleExactAlarms()) {
-                onGranted()
-            } else {
-                val intent = Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM).apply {
-                    data = Uri.parse("package:$packageName")
-                }
-                startActivity(intent)
-                Toast.makeText(this, "Please allow exact alarm permission", Toast.LENGTH_LONG).show()
-            }
-        } else {
-            onGranted()
-        }
     }
 }

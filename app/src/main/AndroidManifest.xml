@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions"/>
-    <!-- Add these permissions -->
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" /> <!-- Add these permissions -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_HEALTH" />
 
     <queries>
         <intent>
             <action android:name="android.intent.action.MAIN" />
+
             <category android:name="android.intent.category.LAUNCHER" />
         </intent>
     </queries>
 
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
-
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -32,68 +32,60 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DigitalDetox"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.RedeemCoinActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.DigitalDetox.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity android:name=".ui.OnboardingActivity" />
         <activity android:name=".ui.ProfileOnboardingActivity" />
-        <activity android:name=".ChatbotActivity"/>
-        <activity android:name=".FocusRitualsActivity"/>
-        <activity android:name=".StudentOptionsActivity"/>
+        <activity android:name=".ChatbotActivity" />
+        <activity android:name=".FocusRitualsActivity" />
+        <activity android:name=".StudentOptionsActivity" />
         <activity android:name=".ui.TimetableActivity"/>
-        <activity android:name=".ui.SetLimitsActivity" />
-        <activity android:name=".ui.ChallengesActivity"/>
-        <activity android:name=".ui.ProfileActivity"/>
-        <activity android:name=".FocusModeActivity"/>
-        <activity android:name=".ui.FocusModeSettingActivity"/>
-        <activity android:name=".ui.ParentalControlActivity" />
-        <activity android:name=".ui.BedtimeDistractionsActivity"/>
+        <activity android:name=".BedtimeDistractionsActivity"/>
         <activity android:name=".ui.BedtimeModeActivity"/>
-        <activity android:name=".ui.DanceDetailActivity"/>
+        <activity android:name=".ui.ParentalControlActivity"/>
+        <activity android:name=".ui.SetLimitsActivity" />
+        <activity android:name=".ui.ChallengesActivity" />
+        <activity android:name=".ui.ProfileActivity" />
+        <activity android:name=".FocusModeActivity" />
         <activity android:name=".ui.YogaDetailActivity"/>
-
+        <activity android:name=".ui.DanceDetailActivity"/>
+        <activity android:name=".ui.FocusModeSettingActivity" />
+        <activity android:name=".ui.PomodoroActivity"/>
 
 
         <service
             android:name=".services.AppBlockerService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:exported="false">
+            android:exported="false"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_config" />
         </service>
-
         <service
-
             android:name=".services.KeepAliveService"
             android:exported="false" />
-
-        <service
-            android:name=".services.StepCounterService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="health" />
-
 
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.DigitalDetox" />
-
-
     </application>
 
 </manifest>
