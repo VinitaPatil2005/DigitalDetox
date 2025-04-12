@@ -40,7 +40,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="28dp" />
 
-
             <!-- Tracking Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,7 +83,7 @@
                 android:textColor="#99AAB5"
                 android:layout_marginBottom="8dp" />
 
-            <!-- Usage Bar from second layout -->
+            <!-- Usage Bar -->
             <LinearLayout
                 android:id="@+id/usageBarContainer"
                 android:layout_width="match_parent"
@@ -92,11 +91,9 @@
                 android:orientation="horizontal"
                 android:background="#2A2D31"
                 android:padding="2dp"
-                android:layout_marginBottom="24dp">
-                <!-- This will be populated dynamically -->
-            </LinearLayout>
+                android:layout_marginBottom="24dp" />
 
-            <!-- Most Used Apps Section with enhanced styling -->
+            <!-- Most Used Apps Section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,18 +119,15 @@
                     android:textAllCaps="false" />
             </LinearLayout>
 
-
             <!-- App Usage Details Container -->
             <LinearLayout
                 android:id="@+id/usageDetailsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="20dp">
-                <!-- This will be populated dynamically -->
-            </LinearLayout>
+                android:layout_marginBottom="20dp" />
 
-            <!-- Student Prompt from second layout -->
+            <!-- Student Prompt -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -159,7 +153,7 @@
                 android:clickable="true"
                 android:focusable="true" />
 
-            <!-- Gamification Card from second layout -->
+            <!-- Gamification Card -->
             <LinearLayout
                 android:id="@+id/gamificationCard"
                 android:layout_width="match_parent"
@@ -203,6 +197,22 @@
                         android:layout_marginTop="2dp" />
                 </LinearLayout>
             </LinearLayout>
+
+            <!-- Start Bedtime Mode Button -->
+            <Button
+                android:id="@+id/btnStartBedtimeMode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Start Bedtime Mode"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/titilliumweb_regular"
+                android:textColor="#121212"
+                android:backgroundTint="#BB86FC"
+
+                android:drawablePadding="8dp"
+                android:padding="12dp" />
 
             <!-- Spacer -->
             <Space

@@ -9,12 +9,15 @@ import com.example.digitaldetox.util.FocusModeManager
 
 class StartFocusReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-        // Enable Focus Mode (or Bedtime Mode) via your shared FocusModeManager
+        // Enable Focus Mode
         FocusModeManager.setFocusModeEnabled(context, true)
 
-        // Launch the settings dialog activity to prompt the user to change settings
-        val dialogIntent = Intent(context, SettingsChangeDialogActivity::class.java)
-        dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        // Launch the dialog activity
+        val dialogIntent = Intent(context, SettingsChangeDialogActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                    Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        }
         context.startActivity(dialogIntent)
 
         Toast.makeText(context, "Focus Mode schedule started", Toast.LENGTH_SHORT).show()

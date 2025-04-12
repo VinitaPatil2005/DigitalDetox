@@ -13,7 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.digitaldetox.R
 import java.util.*
 import android.widget.Button
-import com.example.digitaldetox.receiver.StartFocusReceiver
+import com.example.digitaldetox.util.FocusModeManager
+
 class BedtimeModeActivity : AppCompatActivity() {
 
     private lateinit var startTimeText: TextView
@@ -24,7 +25,7 @@ class BedtimeModeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.bedtime_mode) // make sure this layout exists
+        setContentView(R.layout.bedtime_mode)
 
         startTimeText = findViewById(R.id.start_time)
         endTimeText = findViewById(R.id.end_time)
@@ -34,12 +35,19 @@ class BedtimeModeActivity : AppCompatActivity() {
                 pickTime(isStart = true)
             }
         }
+
         val turnOnNowButton = findViewById<Button>(R.id.turn_on_now)
         turnOnNowButton.setOnClickListener {
-            // Show same settings change dialog as in schedule
-            showSettingsDialog()
-        }
+            // ✅ Enable focus mode manually
+            FocusModeManager.setFocusModeEnabled(this, true)
 
+            // ✅ Launch the same settings change dialog as scheduled mode
+            val intent = Intent(this, SettingsChangeDialogActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+
+            Toast.makeText(this, "Bedtime Mode Started Now", Toast.LENGTH_SHORT).show()
+        }
 
         endTimeText.setOnClickListener {
             pickTime(isStart = false)
@@ -51,17 +59,18 @@ class BedtimeModeActivity : AppCompatActivity() {
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
 
-        TimePickerDialog(this, { _, selectedHour, selectedMinute ->
+        TimePickerDialog(this, { _, hourOfDay, minuteOfHour ->
             val selectedCalendar = Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, selectedHour)
-                set(Calendar.MINUTE, selectedMinute)
+                set(Calendar.HOUR_OF_DAY, hourOfDay)
+                set(Calendar.MINUTE, minuteOfHour)
                 set(Calendar.SECOND, 0)
                 if (timeInMillis < System.currentTimeMillis()) {
                     add(Calendar.DAY_OF_YEAR, 1)
                 }
             }
 
-            val formattedTime = String.format("%02d:%02d", selectedHour, selectedMinute)
+            val formattedTime = String.format("%02d:%02d", hourOfDay, minuteOfHour)
+
             if (isStart) {
                 startTimeText.text = "Start Time: $formattedTime"
                 startTimeMillis = selectedCalendar.timeInMillis
@@ -75,24 +84,6 @@ class BedtimeModeActivity : AppCompatActivity() {
                 Toast.makeText(this, "Bedtime Mode Scheduled!", Toast.LENGTH_SHORT).show()
             }
         }, hour, minute, false).show()
-    }
-    private fun showSettingsDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Allow permissions")
-            .setMessage("Please allow required settings like grayscale and accessibility to enable Bedtime Mode.")
-            .setPositiveButton("Go to settings") { dialog, _ ->
-                // Navigate to accessibility settings
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-                dialog.dismiss()
-
-                // Optional: Also start bedtime logic immediately
-                val intent = Intent(this, StartFocusReceiver::class.java)
-                sendBroadcast(intent)
-            }
-            .setNegativeButton("Cancel") { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
     }
 
     private fun scheduleBedtimeMode(startMillis: Long, endMillis: Long) {

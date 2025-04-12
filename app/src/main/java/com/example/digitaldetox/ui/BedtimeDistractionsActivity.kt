@@ -1,4 +1,4 @@
-package com.example.digitaldetox.ui
+package com.example.digitaldetox
 
 import android.content.Intent
 import android.os.Bundle

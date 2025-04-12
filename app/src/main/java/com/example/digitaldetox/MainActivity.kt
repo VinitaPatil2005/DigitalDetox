@@ -84,6 +84,11 @@ class MainActivity : AppCompatActivity() {
                 setupUsageStats()
                 Toast.makeText(this, "Showing Daily Stats", Toast.LENGTH_SHORT).show()
             }
+            val btnStartBedtime = findViewById<Button>(R.id.btnStartBedtimeMode)
+            btnStartBedtime.setOnClickListener {
+                val intent = Intent(this, BedtimeDistractionsActivity::class.java)
+                startActivity(intent)
+            }
 
             findViewById<Button>(R.id.btnWeeklyTracking)?.setOnClickListener {
                 currentRange = TimeRange.WEEKLY

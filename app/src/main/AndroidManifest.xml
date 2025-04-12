@@ -2,26 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions" />
-    <uses-permission
-        android:name="android.permission.PACKAGE_USAGE_STATS"
-        tools:ignore="ProtectedPermissions" /> <!-- Add these permissions -->
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
+    <!-- Required to allow querying installed apps -->
     <queries>
         <intent>
             <action android:name="android.intent.action.MAIN" />
-
             <category android:name="android.intent.category.LAUNCHER" />
         </intent>
     </queries>
-
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -33,19 +28,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DigitalDetox"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.RedeemCoinActivity"
-            android:exported="false" />
+
+        <!-- Main Launcher -->
         <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.DigitalDetox.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- App Activities -->
+        <activity android:name=".MainActivity" android:exported="true" android:label="@string/app_name" android:theme="@style/Theme.DigitalDetox" />
         <activity android:name=".ui.OnboardingActivity" />
         <activity android:name=".ui.ProfileOnboardingActivity" />
         <activity android:name=".ChatbotActivity" />
@@ -56,33 +52,47 @@
         <activity android:name=".ui.ChallengesActivity" />
         <activity android:name=".ui.ProfileActivity" />
         <activity android:name=".FocusModeActivity" />
+        <activity android:name=".ui.FocusModeSettingActivity" />
         <activity android:name=".ui.YogaDetailActivity"/>
         <activity android:name=".ui.DanceDetailActivity"/>
-        <activity android:name=".ui.FocusModeSettingActivity" />
         <activity android:name=".ui.PomodoroActivity"/>
+        <activity android:name=".BedtimeDistractionsActivity" />
+        <activity android:name=".ui.BedtimeModeActivity" />
 
+        <!-- Block screen -->
+        <activity
+            android:name=".ui.BlockScreenActivity"
+            android:excludeFromRecents="true"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".ui.SettingsChangeDialogActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:excludeFromRecents="true"/>
 
+        <!-- Accessibility Service -->
         <service
-            android:name=".services.AppBlockerService"
+            android:name=".service.FocusModeAccessibilityService"
             android:exported="false"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
-
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_config" />
         </service>
+
+        <!-- Foreground service to keep focus mode alive -->
         <service
             android:name=".services.KeepAliveService"
             android:exported="false" />
+        <receiver android:name=".receiver.StartFocusReceiver" />
+        <receiver android:name=".receiver.StopFocusReceiver" />
 
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.DigitalDetox" />
+
     </application>
 
 </manifest>
